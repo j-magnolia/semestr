@@ -65,5 +65,5 @@ help you write a unit test, if needed).
 ## Code of Conduct
 
 Please note that the project is released with a [Contributor Code of
-Conduct](https://jonathan-g.github.io/semestr/CODE_OF_CONDUCT.md). By
+Conduct](https://j-magnolia.github.io/semestr/CODE_OF_CONDUCT.md). By
 contributing to this project you agree to abide by its terms.

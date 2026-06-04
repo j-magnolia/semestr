@@ -22,7 +22,7 @@ make_reading_page(cal_id, semester, schedule, use_pdfs = TRUE)
 - schedule:
 
   A data frame with the semester schedule (returned by
-  [prepare_schedule](https://jonathan-g.github.io/semestr/reference/prepare_schedule.md))
+  [prepare_schedule](https://j-magnolia.github.io/semestr/reference/prepare_schedule.md))
 
 - use_pdfs:
 

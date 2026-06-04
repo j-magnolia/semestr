@@ -19,4 +19,4 @@ If the option is not set, then use crc32.
 
 ## See also
 
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).

@@ -30,5 +30,5 @@ selected source files.
 
 ## See also
 
-[`blogdownDigest::update_site_digests()`](https://jonathan-g.github.io/blogdownDigest/reference/update_site_digests.html),
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[`blogdownDigest::update_site_digests()`](https://rdrr.io/pkg/blogdownDigest/man/update_site_digests.html),
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).

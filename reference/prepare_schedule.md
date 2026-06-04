@@ -13,7 +13,7 @@ prepare_schedule(semester)
 - semester:
 
   A semester object returned from
-  [`load_semester_db()`](https://jonathan-g.github.io/semestr/reference/load_semester_db.md).
+  [`load_semester_db()`](https://j-magnolia.github.io/semestr/reference/load_semester_db.md).
 
 ## Value
 

@@ -41,8 +41,8 @@ The formatted date.
 
 ``` r
 format_class_date(Sys.Date())
-#> [1] "Jan. 28"
+#> [1] "Jun. 4"
 
 format_class_day_date(Sys.Date())
-#> [1] "Wed., Jan. 28"
+#> [1] "Thu., Jun. 4"
 ```

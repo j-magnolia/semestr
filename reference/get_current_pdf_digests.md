@@ -62,6 +62,6 @@ digests of current source and output files.
 
 ## See also
 
-[`pdfs_to_rebuild()`](https://jonathan-g.github.io/semestr/reference/pdfs_to_rebuild.md),
-[`pdf_digest_if_exists()`](https://jonathan-g.github.io/semestr/reference/pdf_digest_if_exists.md),
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[`pdfs_to_rebuild()`](https://j-magnolia.github.io/semestr/reference/pdfs_to_rebuild.md),
+[`pdf_digest_if_exists()`](https://j-magnolia.github.io/semestr/reference/pdf_digest_if_exists.md),
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).

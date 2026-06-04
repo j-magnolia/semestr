@@ -57,4 +57,4 @@ and in either case, the source file needs to be rebuilt.
 
 ## See also
 
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).

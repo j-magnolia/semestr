@@ -31,9 +31,3 @@ lookup_past_reading(schedule, id = NULL, grp = NULL, delta = 1)
 ## Value
 
 A row from the calendar table.
-
-## Functions
-
-- `lookup_future_reading()`:
-
-- `lookup_past_reading()`:

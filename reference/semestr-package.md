@@ -7,13 +7,18 @@ web site from a SQL database.
 
 Useful links:
 
-- <https://jonathan-g.github.io/semestr/>
+- <https://j-magnolia.github.io/semestr/>
 
-- <https://github.com/jonathan-g/semestr>
+- <https://github.com/j-magnolia/semestr>
 
-- Report bugs at <https://github.com/jonathan-g/semestr/issues>
+- Report bugs at <https://github.com/j-magnolia/semestr/issues>
 
 ## Author
 
-**Maintainer**: Jonathan Gilligan <jonathan.gilligan@vanderbilt.edu>
+**Maintainer**: Jonathan Gilligan <j.magnolia.gilligan@vanderbilt.edu>
 ([ORCID](https://orcid.org/0000-0003-1375-6686))
+
+Authors:
+
+- Jonathan Gilligan <j.magnolia.gilligan@vanderbilt.edu>
+  ([ORCID](https://orcid.org/0000-0003-1375-6686))

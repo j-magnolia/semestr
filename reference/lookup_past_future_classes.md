@@ -27,9 +27,3 @@ lookup_past_class(calendar, id, delta = 1)
 ## Value
 
 A row from the calendar table.
-
-## Functions
-
-- `lookup_future_class()`:
-
-- `lookup_past_class()`:

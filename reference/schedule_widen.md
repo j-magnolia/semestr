@@ -23,7 +23,7 @@ schedule_widen(
 - schedule:
 
   A `schedule` data frame, as returned from
-  [`init_schedule()`](https://jonathan-g.github.io/semestr/reference/init_schedule.md).
+  [`init_schedule()`](https://j-magnolia.github.io/semestr/reference/init_schedule.md).
 
 - final_exams:
 
@@ -32,7 +32,7 @@ schedule_widen(
 - semester:
 
   A `semester` object (a list), as returned from
-  [`load_semester_db()`](https://jonathan-g.github.io/semestr/reference/load_semester_db.md)
+  [`load_semester_db()`](https://j-magnolia.github.io/semestr/reference/load_semester_db.md)
 
 - final_is_take_home:
 

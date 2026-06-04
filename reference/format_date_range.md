@@ -35,7 +35,7 @@ A formatted date
 ## Details
 
 Format a range of dates, using a similar format to
-[`format_class_date()`](https://jonathan-g.github.io/semestr/reference/format_class_date.md)
+[`format_class_date()`](https://j-magnolia.github.io/semestr/reference/format_class_date.md)
 
 ## Functions
 

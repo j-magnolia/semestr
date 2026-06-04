@@ -77,4 +77,4 @@ saves it to a file.
 
 [`build_site()`](https://pkgs.rstudio.com/blogdown/reference/build_site.html),
 [`build_dir()`](https://pkgs.rstudio.com/blogdown/reference/build_dir.html),
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).

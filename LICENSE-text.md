@@ -1,4 +1,4 @@
 # License
 
-    YEAR: 2019--2025
-    COPYRIGHT HOLDER: Jonathan M. Gilligan
+    YEAR: 2019--2026
+    COPYRIGHT HOLDER: J. Magnolia Gilligan

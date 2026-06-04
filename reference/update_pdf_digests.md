@@ -1,6 +1,6 @@
 # Generates and stores digests for all source and output files.
 
-[`blogdownDigest::update_site_digests`](https://jonathan-g.github.io/blogdownDigest/reference/update_site_digests.html)
+[`blogdownDigest::update_site_digests`](https://rdrr.io/pkg/blogdownDigest/man/update_site_digests.html)
 calculates hashed digests for a site.
 
 ## Usage
@@ -56,6 +56,6 @@ directory of the site.
 
 ## See also
 
-[`prune_pdf_digests()`](https://jonathan-g.github.io/semestr/reference/prune_pdf_digests.md),
-[`update_site()`](https://jonathan-g.github.io/blogdownDigest/reference/update_site.html),
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[`prune_pdf_digests()`](https://j-magnolia.github.io/semestr/reference/prune_pdf_digests.md),
+[`update_site()`](https://rdrr.io/pkg/blogdownDigest/man/update_site.html),
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).

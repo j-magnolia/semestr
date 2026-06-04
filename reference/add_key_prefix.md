@@ -57,5 +57,3 @@ A data frame with the prefixes stripped from the specified column.
 ## See also
 
 strip_key_prefix
-
-strip_key_prefix

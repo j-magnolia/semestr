@@ -31,5 +31,5 @@ changed since the last time the site was built.
 
 ## See also
 
-[`get_current_pdf_digests()`](https://jonathan-g.github.io/semestr/reference/get_current_pdf_digests.md),
-[blogdownDigest::digests](https://jonathan-g.github.io/blogdownDigest/reference/digests.html).
+[`get_current_pdf_digests()`](https://j-magnolia.github.io/semestr/reference/get_current_pdf_digests.md),
+[blogdownDigest::digests](https://rdrr.io/pkg/blogdownDigest/man/digests.html).
