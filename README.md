@@ -1,7 +1,7 @@
 semestr
 ================
-Jonathan Gilligan
-2025-01-13
+J. Magnolia Gilligan
+2026-06-03
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -10,14 +10,14 @@ Jonathan Gilligan
 <!-- badges: start -->
 
 [![Version:
-0.4.0](https://img.shields.io/github/r-package/v/jonathan-g/semestr?label=version)](https://github.com/jonathan-g/semestr/releases/tag/v0.4.0)
+0.4.3](https://img.shields.io/github/r-package/v/j-magnolia/semestr?label=version)](https://github.com/j-magnolia/semestr/releases/tag/v0.4.3)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/semestr)](https://CRAN.R-project.org/package=semestr)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![R-CMD-check](https://github.com/jonathan-g/semestr/workflows/R-CMD-check/badge.svg)](https://github.com/jonathan-g/semestr/actions)
+[![R-CMD-check](https://github.com/j-magnolia/semestr/workflows/R-CMD-check/badge.svg)](https://github.com/j-magnolia/semestr/actions)
 <!-- badges: end -->
 
 The goal of semestr is to manage a syllabus for a university course. The
@@ -38,7 +38,7 @@ This package has not been released to CRAN. You can install the
 development version from GitHub using the `remotes` package:
 
 ``` r
-remotes::install_github("jonathan-g/semestr")
+remotes::install_github("j-magnolia/semestr")
 ```
 
 ## Example

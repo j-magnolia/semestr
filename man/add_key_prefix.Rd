@@ -47,6 +47,4 @@ function adds those prefixes.
 }}
 \seealso{
 strip_key_prefix
-
-strip_key_prefix
 }

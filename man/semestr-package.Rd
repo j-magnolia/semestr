@@ -11,14 +11,19 @@ Manage a syllabus, reading, homework, and lab assignments, and a course web site
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://jonathan-g.github.io/semestr/}
-  \item \url{https://github.com/jonathan-g/semestr}
-  \item Report bugs at \url{https://github.com/jonathan-g/semestr/issues}
+  \item \url{https://j-magnolia.github.io/semestr/}
+  \item \url{https://github.com/j-magnolia/semestr}
+  \item Report bugs at \url{https://github.com/j-magnolia/semestr/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Jonathan Gilligan \email{jonathan.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
+\strong{Maintainer}: Jonathan Gilligan \email{j.magnolia.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
+
+Authors:
+\itemize{
+  \item Jonathan Gilligan \email{j.magnolia.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
+}
 
 }
 \keyword{internal}

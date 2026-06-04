@@ -7,7 +7,7 @@ p_load(assertthat)
 p_load(yaml)
 p_load(here)
 p_load(blogdown)
-p_load_current_gh("jonathan-g/blogdownDigest")
+p_load_current_gh("j-magnolia/blogdownDigest")
 
 root_dir <- here::here()
 planning_dir <- here::here("planning")

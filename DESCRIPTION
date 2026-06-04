@@ -1,20 +1,20 @@
 Package: semestr
 Title: Generate Assignments for a Semester from a SQLlite Database
-Version: 0.4.2
-Date: 2026-01-27
+Version: 0.4.3
+Date: 2026-06-03
 Authors@R: 
     person(given = "Jonathan",
            family = "Gilligan",
            role = c("aut", "cre"),
-           email = "jonathan.gilligan@vanderbilt.edu",
+           email = "j.magnolia.gilligan@vanderbilt.edu",
            comment = c(ORCID = "0000-0003-1375-6686"))
 Description: 
     Manage a syllabus, reading, homework, and lab assignments, and a course
     web site from a SQL database.
 License: MIT + file LICENSE
-URL: https://jonathan-g.github.io/semestr/,
-     https://github.com/jonathan-g/semestr
-BugReports: https://github.com/jonathan-g/semestr/issues
+URL: https://j-magnolia.github.io/semestr/,
+     https://github.com/j-magnolia/semestr
+BugReports: https://github.com/j-magnolia/semestr/issues
 Depends:
     R (>= 4.0)
 Imports: 
@@ -43,9 +43,9 @@ Suggests:
     testthat (>= 3.0),
     roxygen2 (>= 7.1)
 Remotes:
-    jonathan-g/blogdownDigest
+    j-magnolia/blogdownDigest
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Language: en-US
+Config/roxygen2/version: 8.0.0

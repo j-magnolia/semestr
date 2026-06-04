@@ -1,3 +1,9 @@
+* semesstr 0.4.3
+
+  * Bugfix: Pandoc now usess option `-definition_lists` instead of 
+    `-compact_definition_lists`. Fix pandoc options in `.Rmd` headers 
+    to avoid an error.
+
 # semestr 0.4.2
 
 * Bugfix: Fixed `schedule_widen()` to fix bug where `NA` items would

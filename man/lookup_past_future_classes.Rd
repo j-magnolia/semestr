@@ -23,10 +23,3 @@ A row from the calendar table.
 \description{
 Look up previous or future classes, based on the current class's id.
 }
-\section{Functions}{
-\itemize{
-\item \code{lookup_future_class()}: 
-
-\item \code{lookup_past_class()}: 
-
-}}

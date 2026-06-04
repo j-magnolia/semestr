@@ -25,6 +25,7 @@ strip_key_prefix.default <- function(x, type, ...) {
 }
 
 #' @describeIn strip_key_prefix Strip key prefixes from character vector.
+#' @exportS3Method semestr::strip_key_prefix
 strip_key_prefix.character <- function(x, type, ...) {
   target <- stringr::str_c("^", get_semestr_metadata()$prefixes[type], "_")
   x <- purrr::map_chr(x, stringr::str_replace_all, target, "")
@@ -33,6 +34,7 @@ strip_key_prefix.character <- function(x, type, ...) {
 }
 
 #' @describeIn strip_key_prefix Strip key prefixes from a list of character objects.
+#' @exportS3Method semestr::strip_key_prefix
 strip_key_prefix.list <- function(x, type, ...) {
   x <- purrr::map(x, ~strip_key_prefix(.x, type))
   invisible(x)
@@ -50,6 +52,7 @@ strip_key_prefix.list <- function(x, type, ...) {
 #'
 #' @seealso add_key_prefix
 #'
+#' @export
 strip_key_prefix.data.frame <- function(x, type, col = "cal_key", ...) {
   col <- ensym(col)
   col <- enquo(col)
@@ -86,6 +89,7 @@ add_key_prefix.default <- function(x, type, ...) {
 }
 
 #' @describeIn add_key_prefix Add key prefixes to a character vector.
+#' @exportS3Method semestr::add_key_prefix
 add_key_prefix.character <- function(x, type, ...) {
   prefix <- get_semestr_metadata()$prefixes[type]
   x <- purrr::map_chr(x, ~stringr::str_c(prefix, .x, sep = "_"))
@@ -94,6 +98,7 @@ add_key_prefix.character <- function(x, type, ...) {
 }
 
 #' @describeIn add_key_prefix Add key prefixes to a list of character objects.
+#' @exportS3Method semestr::add_key_prefix
 add_key_prefix.list <- function(x, type, ...) {
   x <- purrr::map(x, ~add_key_prefix(.x, type))
   invisible(x)
@@ -108,7 +113,7 @@ add_key_prefix.list <- function(x, type, ...) {
 #' @return A data frame with the prefixes stripped from the specified column.
 #'
 #' @seealso strip_key_prefix
-#'
+#' @exportS3Method semestr::add_key_prefix
 add_key_prefix.data.frame <- function(x, type, col = "cal_key", ...) {
   col <- ensym(col)
   col <- enquo(col)

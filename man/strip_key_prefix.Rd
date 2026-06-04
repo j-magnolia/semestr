@@ -47,6 +47,4 @@ function strips those off.
 }}
 \seealso{
 add_key_prefix
-
-add_key_prefix
 }

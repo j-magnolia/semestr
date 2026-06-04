@@ -35,7 +35,7 @@ lookup_class <- function(calendar, key) {
 #' @name lookup_past_future_classes
 NULL
 
-#' @describeIn lookup_past_future_classes
+#' @rdname lookup_past_future_classes
 #'
 #' @export
 lookup_future_class <- function(calendar, id, delta = 1) {
@@ -69,7 +69,7 @@ lookup_future_class <- function(calendar, id, delta = 1) {
   }
 }
 
-#' @describeIn lookup_past_future_classes
+#' @rdname lookup_past_future_classes
 #'
 #' @export
 lookup_past_class <- function(calendar, id, delta = 1) {
@@ -117,7 +117,7 @@ lookup_past_class <- function(calendar, id, delta = 1) {
 #' @name lookup_past_future_reading
 NULL
 
-#' @describeIn lookup_past_future_reading
+#' @rdname lookup_past_future_reading
 #'
 #' @export
 lookup_future_reading <- function(schedule, id = NULL, grp = NULL, delta = 1) {
@@ -157,7 +157,7 @@ lookup_future_reading <- function(schedule, id = NULL, grp = NULL, delta = 1) {
   }
 }
 
-#' @describeIn lookup_past_future_reading
+#' @rdname lookup_past_future_reading
 #'
 #' @export
 lookup_past_reading <- function(schedule, id = NULL, grp = NULL, delta = 1) {

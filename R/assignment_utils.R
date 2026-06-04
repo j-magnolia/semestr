@@ -43,7 +43,7 @@ set_md_extensions <- function(ext_str, append = FALSE) {
 get_md_extensions <- function() {
   exts <- getOption("semestr.md_extensions")
   if (is.null(exts)) {
-    exts <- "+tex_math_single_backslash+compact_definition_lists"
+    exts <- "+tex_math_single_backslash+definition_lists"
   }
   exts
 }
