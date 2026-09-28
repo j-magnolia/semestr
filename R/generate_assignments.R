@@ -13,8 +13,8 @@ init_schedule <- function(semester) {
   schedule <- semester$calendar %>%
     dplyr::filter(.data$cal_type %in% c("class", "exam", "homework",
                                         "lab", "holiday")) %>%
-    dplyr::select(id = "cal_id", "date", key = "cal_key", "cal_type",
-                  "canceled", "makeup", ref = "cal_ref") %>%
+    dplyr::select(id = "cal_id", "date", key = "cal_key",
+                  "cal_type") %>%
     dplyr::mutate(
       # dates might be datetimes, so convert everything to calendar dates.
       date = lubridate::as_date(.data$date, tz = get_semestr_tz()),
@@ -97,11 +97,11 @@ schedule_add_reading <- function(schedule, semester) {
   if (has_reading) {
     reading <- semester$rd_items %>%
       dplyr::select(key = "rd_grp_key", id_rd = "rd_grp_id",
-                    "cal_id") %>%
+                    "cal_key") %>%
       dplyr::distinct() %>%
-      dplyr::left_join(dplyr::select(schedule, "date", cal_id = "id"),
-                       by = "cal_id") %>%
-      dplyr::select(id = "id_rd", "date", "key") %>%
+      dplyr::left_join(dplyr::select(schedule, "date", cal_key = "key"),
+                       by = "cal_key") %>%
+      dplyr::select(id = "id_rd", "date", key = "cal_key") %>%
       dplyr::mutate(cal_type = "rd")
     schedule <- schedule %>% dplyr::bind_rows(reading)
   }
@@ -160,36 +160,6 @@ schedule_widen <- function(schedule, final_exams, semester,
   topics <- semester$class_topics %>%
     dplyr::select(key_class = "cal_key", "topic") %>%
     dplyr::filter(!is.na(.data$key_class), !is.na(.data$topic))
-
-  makeup_items <- schedule |> dplyr::filter(.data$makeup)
-  canceled_items <- schedule |> dplyr::filter(.data$canceled) |>
-    dplyr::select(-"key") |>
-    dplyr::left_join(dplyr::select(makeup_items, id = "ref",
-                                   key_class = "key"),
-                     by = "id") |>
-    dplyr::left_join(dplyr::select(topics, "key_class", "topic"),
-                     by = "key_class") |>
-    dplyr::mutate(topic = stringr::str_c(.data$topic, " (Canceled)"),
-                  key_class = stringr::str_c(.data$key_class,
-                                             "_CANCELED"))
-
-  makeup_items <- makeup_items |> dplyr::select(key_class = "key") |>
-    dplyr::left_join(dplyr::select(topics, "key_class", "topic"),
-                     by = "key_class")
-
-  topics <- topics |>
-    dplyr::filter(! .data$key_class %in% makeup_items$key_class) |>
-    dplyr::bind_rows(dplyr::select(canceled_items, "key_class",
-                                   "topic"),
-                     makeup_items)
-
-  canceled_items <- canceled_items |>
-    dplyr::rename(key = "key_class") |>
-    dplyr::select(-"topic")
-
-  schedule <- schedule |>
-    dplyr::filter(! .data$id %in% canceled_items$id) |>
-    dplyr::bind_rows(canceled_items)
 
   if (has_exams) {
     exam_topics <- semester$exams %>%
@@ -441,7 +411,6 @@ copy_slides <- function(schedule, date, cal_entry, semester,
   invisible(schedule)
 }
 
-
 #' Build a reading assignment
 #'
 #' Build a reading assignment: Generate an `.Rmd` file for a
@@ -629,10 +598,10 @@ prepare_schedule <- function(semester) {
   schedule <- tmp$schedule
   final_exams <- tmp$final_exams
 
-  schedule <- schedule %>% schedule_add_reading(semester)
+  schedule <- schedule_add_reading(schedule, semester)
 
   if (semester$has_homework) {
-    tmp <- schedule %>% schedule_add_homework(semester)
+    tmp <- schedule_add_homework(schedule, semester)
     schedule <- tmp$schedule
   }
 
@@ -661,6 +630,9 @@ prepare_schedule <- function(semester) {
 #' }
 #' @export
 generate_assignments <- function(semester, dry_run = FALSE) {
+  if (! tibble::has_name(semester, "fixed") || ! semester$fixed) {
+    semester <- fixup_semester(semester)
+  }
   schedule <- prepare_schedule(semester)
 
   schedule <- build_assignments(schedule, semester, dry_run)
