@@ -18,11 +18,11 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Jonathan Gilligan \email{j.magnolia.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
+\strong{Maintainer}: J. Magnolia Gilligan \email{j.magnolia.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
 
 Authors:
 \itemize{
-  \item Jonathan Gilligan \email{j.magnolia.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
+  \item J. Magnolia Gilligan \email{j.magnolia.gilligan@vanderbilt.edu} (\href{https://orcid.org/0000-0003-1375-6686}{ORCID})
 }
 
 }

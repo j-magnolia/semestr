@@ -11,13 +11,15 @@
 #' @export
 init_schedule <- function(semester) {
   schedule <- semester$calendar %>%
-    dplyr::filter(.data$cal_type %in% c("class", "exam", "homework", "lab",
-                                        "holiday")) %>%
-    dplyr::select(id = "cal_id", "date", key = "cal_key", "cal_type") %>%
+    dplyr::filter(.data$cal_type %in% c("class", "exam", "homework",
+                                        "lab", "holiday")) %>%
+    dplyr::select(id = "cal_id", "date", key = "cal_key", "cal_type",
+                  "canceled", "makeup", ref = "cal_ref") %>%
     dplyr::mutate(
       # dates might be datetimes, so convert everything to calendar dates.
       date = lubridate::as_date(.data$date, tz = get_semestr_tz()),
-      cal_type = type2col(.data$cal_type))
+      cal_type = type2col(.data$cal_type)
+      )
   invisible(schedule)
 }
 
@@ -154,9 +156,41 @@ schedule_widen <- function(schedule, final_exams, semester,
     final_exams <- NULL
     final_is_take_home <- FALSE
   }
+
   topics <- semester$class_topics %>%
     dplyr::select(key_class = "cal_key", "topic") %>%
     dplyr::filter(!is.na(.data$key_class), !is.na(.data$topic))
+
+  makeup_items <- schedule |> dplyr::filter(.data$makeup)
+  canceled_items <- schedule |> dplyr::filter(.data$canceled) |>
+    dplyr::select(-"key") |>
+    dplyr::left_join(dplyr::select(makeup_items, id = "ref",
+                                   key_class = "key"),
+                     by = "id") |>
+    dplyr::left_join(dplyr::select(topics, "key_class", "topic"),
+                     by = "key_class") |>
+    dplyr::mutate(topic = stringr::str_c(.data$topic, " (Canceled)"),
+                  key_class = stringr::str_c(.data$key_class,
+                                             "_CANCELED"))
+
+  makeup_items <- makeup_items |> dplyr::select(key_class = "key") |>
+    dplyr::left_join(dplyr::select(topics, "key_class", "topic"),
+                     by = "key_class")
+
+  topics <- topics |>
+    dplyr::filter(! .data$key_class %in% makeup_items$key_class) |>
+    dplyr::bind_rows(dplyr::select(canceled_items, "key_class",
+                                   "topic"),
+                     makeup_items)
+
+  canceled_items <- canceled_items |>
+    dplyr::rename(key = "key_class") |>
+    dplyr::select(-"topic")
+
+  schedule <- schedule |>
+    dplyr::filter(! .data$id %in% canceled_items$id) |>
+    dplyr::bind_rows(canceled_items)
+
   if (has_exams) {
     exam_topics <- semester$exams %>%
       dplyr::select(key_exam = "exam_key", topic_exam = "exam") %>%
@@ -338,11 +372,13 @@ comp_na_f <- function(x, y) {
 #' @param date The reading due date.
 #' @param cal_entry A calendar entry for the class.
 #' @param semester A list of data for the semester, from the database.
+#' @param dry_run Don't actually copy files
 #'
 #' @return An updated schedule data frame
 #'
 #' @export
-copy_slides <- function(schedule, date, cal_entry, semester) {
+copy_slides <- function(schedule, date, cal_entry, semester,
+                        dry_run = FALSE) {
   class_num <- cal_entry$class_num
   date <- lubridate::as_date(date)
   slide_dir <- semester$slide_dir
@@ -359,7 +395,8 @@ copy_slides <- function(schedule, date, cal_entry, semester) {
       }
       schedule <- schedule %>%
         dplyr::mutate(page_lecture =
-                        ifelse(comp_na_f(.data$class_num, cal_entry$class_num),
+                        ifelse(comp_na_f(.data$class_num,
+                                         cal_entry$class_num),
                                slide_url, .data$page_lecture))
     } else {
       slides <- list.files(file.path(slide_dir, slide_class_dir),
@@ -390,7 +427,8 @@ copy_slides <- function(schedule, date, cal_entry, semester) {
         }
         schedule <- schedule %>%
           dplyr::mutate(page_lecture =
-                          ifelse(comp_na_f(.data$class_num, cal_entry$class_num),
+                          ifelse(comp_na_f(.data$class_num,
+                                           cal_entry$class_num),
                                  .data$slide_url, .data$page_lecture))
       } else {
         if (getOption("semestr.verbose", default = 1) >= 1) {
@@ -413,11 +451,13 @@ copy_slides <- function(schedule, date, cal_entry, semester) {
 #' @param date The reading due date.
 #' @param cal_entry A calendar entry for the class.
 #' @param semester A list of data for the semester, from the database.
+#' @param dry_run Don't actually write assignment files to disk.
 #'
 #' @return An updated schedule data frame
 #'
 #' @export
-build_reading_assignment <- function(schedule, date, cal_entry, semester) {
+build_reading_assignment <- function(schedule, date, cal_entry, semester,
+                                     dry_run = FALSE) {
   date <- lubridate::as_date(date)
   root_dir <- semester$root_dir
   class_num <- cal_entry$class_num
@@ -435,7 +475,9 @@ build_reading_assignment <- function(schedule, date, cal_entry, semester) {
                         stringr::str_replace(rd_fname, "\\.Rmd$", "")) %>%
       clean_url()
     rd_page <- make_reading_page(cal_entry$id_class, semester, schedule)
-    cat(rd_page, file = rd_path)
+    if (! dry_run) {
+      cat(rd_page, file = rd_path)
+    }
     schedule <- schedule %>%
       dplyr::mutate(page_reading =
                       ifelse(comp_na_f(class_num, cal_entry$class_num),
@@ -454,11 +496,13 @@ build_reading_assignment <- function(schedule, date, cal_entry, semester) {
 #' @param date The homework due date.
 #' @param cal_entry A calendar entry for the homework due date.
 #' @param semester A list of data for the semester, from the database.
+#' @param dry_run Don't actually write assignment files to disk.
 #'
 #' @return An updated schedule data frame
 #'
 #' @export
-build_hw_assignment <- function(schedule, date, cal_entry, semester) {
+build_hw_assignment <- function(schedule, date, cal_entry, semester,
+                                dry_run = FALSE) {
   if (! tibble::has_name(schedule, "page_hw")) {
     schedule <- dplyr::mutate(schedule, page_hw = NA_character_)
   }
@@ -485,11 +529,13 @@ build_hw_assignment <- function(schedule, date, cal_entry, semester) {
 #' @param date The date of the lab.
 #' @param cal_entry A calendar entry for the lab session.
 #' @param semester A list of data for the semester, from the database.
+#' @param dry_run Don't actually write assignment files to disk.
 #'
 #' @return An updated schedule data frame
 #'
 #' @export
-build_lab_assignment <- function(schedule, date, cal_entry, semester) {
+build_lab_assignment <- function(schedule, date, cal_entry, semester,
+                                 dry_run = FALSE) {
   if (! tibble::has_name(schedule, "page_lab")) {
     schedule <- dplyr::mutate(schedule, page_lab = NA_character_)
   }
@@ -498,7 +544,7 @@ build_lab_assignment <- function(schedule, date, cal_entry, semester) {
       message("Making lab page for lab ", cal_entry$key_lab )
     }
     links <- generate_lab_assignment(cal_entry$key_lab, semester, schedule,
-                                     TRUE)
+                                     TRUE, dry_run)
     schedule <- schedule %>%
       dplyr::mutate(page_lab = ifelse(comp_na_f(.data$id_lab, cal_entry$id_lab),
                                       links['url'], .data$page_lab))
@@ -514,11 +560,12 @@ build_lab_assignment <- function(schedule, date, cal_entry, semester) {
 #'
 #' @param schedule A schedule dataframe.
 #' @param semester A semester object (list).
+#' @param dry_run Don't actually write assignment files to disk.
 #'
 #' @return An updated schedule dataframe
 #'
 #' @export
-build_assignments <- function(schedule, semester) {
+build_assignments <- function(schedule, semester, dry_run = FALSE) {
   dates <- schedule$date
 
   has_labs <- tibble::has_name(schedule, "id_lab")
@@ -526,7 +573,7 @@ build_assignments <- function(schedule, semester) {
   root_dir <- semester$root_dir
   slide_dir <- semester$slide_dir
 
-  generate_handouts(semester, schedule)
+  generate_handouts(semester, schedule, dry_run)
 
   for (d in purrr::discard(dates, is.na)) {
     d = lubridate::as_date(d)
@@ -553,11 +600,13 @@ build_assignments <- function(schedule, semester) {
       lab_key <- NA
     }
 
-    schedule <- schedule %>% copy_slides(d, cal_entry, semester)
+    schedule <- schedule %>% copy_slides(d, cal_entry, semester, dry_run)
     schedule <- schedule %>%
-      build_reading_assignment(d, cal_entry, semester)
-    schedule <- schedule %>% build_hw_assignment(d, cal_entry, semester)
-    schedule <- schedule %>% build_lab_assignment(d, cal_entry, semester)
+      build_reading_assignment(d, cal_entry, semester, dry_run)
+    schedule <- schedule %>% build_hw_assignment(d, cal_entry, semester,
+                                                 dry_run)
+    schedule <- schedule %>% build_lab_assignment(d, cal_entry, semester,
+                                                  dry_run)
   }
   invisible(schedule)
 }
@@ -600,7 +649,8 @@ prepare_schedule <- function(semester) {
 #' a lessons.yml file for Hugo to use in making a schedule for a course.
 #'
 #' @param semester A semester object returned from
-#' [load_semester_db()].
+#'   [load_semester_db()].
+#' @param dry_run Don't actually write assignment files to disk.
 #'
 #' @return A named list containing the lesson plan in YAML text format and
 #'   the semester schedule, as a [`tibble`][tibble::tbl_df-class].
@@ -610,10 +660,10 @@ prepare_schedule <- function(semester) {
 #' asgts <- generate_assignments(sem)
 #' }
 #' @export
-generate_assignments <- function(semester) {
+generate_assignments <- function(semester, dry_run = FALSE) {
   schedule <- prepare_schedule(semester)
 
-  schedule <- build_assignments(schedule, semester)
+  schedule <- build_assignments(schedule, semester, dry_run)
 
   if (getOption("semestr.verbose", default = 1) >= 1) {
     message("Done building assignments...")
@@ -643,8 +693,10 @@ generate_assignments <- function(semester) {
     yaml::as.yaml() %>%
     expand_codes(context, semester, schedule)
 
-
-  cat(lesson_plan, file = file.path(semester$root_dir, "data", "lessons.yml"))
+  if (! dry_run) {
+    cat(lesson_plan, file = file.path(semester$root_dir, "data",
+                                      "lessons.yml"))
+  }
 
   invisible(list(lesson_plan = lesson_plan, schedule = schedule))
 }

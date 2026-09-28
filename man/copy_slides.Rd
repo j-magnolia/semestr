@@ -4,7 +4,7 @@
 \alias{copy_slides}
 \title{Install Powerpoint slides for a class session}
 \usage{
-copy_slides(schedule, date, cal_entry, semester)
+copy_slides(schedule, date, cal_entry, semester, dry_run = FALSE)
 }
 \arguments{
 \item{schedule}{A schedule data frame.}
@@ -14,6 +14,8 @@ copy_slides(schedule, date, cal_entry, semester)
 \item{cal_entry}{A calendar entry for the class.}
 
 \item{semester}{A list of data for the semester, from the database.}
+
+\item{dry_run}{Don't actually copy files}
 }
 \value{
 An updated schedule data frame

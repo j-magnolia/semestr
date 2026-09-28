@@ -1,9 +1,9 @@
 Package: semestr
 Title: Generate Assignments for a Semester from a SQLlite Database
-Version: 0.4.3
-Date: 2026-06-03
+Version: 0.5.0
+Date: 2026-09-27
 Authors@R: 
-    person(given = "Jonathan",
+    person(given = "J. Magnolia",
            family = "Gilligan",
            role = c("aut", "cre"),
            email = "j.magnolia.gilligan@vanderbilt.edu",
@@ -16,7 +16,7 @@ URL: https://j-magnolia.github.io/semestr/,
      https://github.com/j-magnolia/semestr
 BugReports: https://github.com/j-magnolia/semestr/issues
 Depends:
-    R (>= 4.0)
+    R (>= 4.1)
 Imports: 
     assertthat (>= 0.2),
     DBI (>= 1.0),
@@ -48,4 +48,4 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Language: en-US
-Config/roxygen2/version: 8.0.0
+Config/roxygen2/version: 8.1.0

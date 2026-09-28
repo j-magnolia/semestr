@@ -10,9 +10,9 @@ item_mod(cal_id)
 \item{cal_id}{an integer calendar ID number.}
 }
 \value{
-A string identifying the type of modification. Current values are
-"canceled" and "make-up"
+A string identifying the type of modification. Current
+values are "canceled" and "makeup"
 }
 \description{
-Modifications include canceled and re-scheduled (make-up) classes.
+Modifications include canceled and re-scheduled (makeup) classes.
 }

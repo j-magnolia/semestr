@@ -4,11 +4,13 @@
 \alias{generate_assignments}
 \title{Generate assignments from database}
 \usage{
-generate_assignments(semester)
+generate_assignments(semester, dry_run = FALSE)
 }
 \arguments{
 \item{semester}{A semester object returned from
 \code{\link[=load_semester_db]{load_semester_db()}}.}
+
+\item{dry_run}{Don't actually write assignment files to disk.}
 }
 \value{
 A named list containing the lesson plan in YAML text format and

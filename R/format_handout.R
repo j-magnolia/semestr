@@ -50,7 +50,8 @@ make_handout <- function(doc, semester, schedule) {
   handout_page
 }
 
-make_handout_page <- function(handout, semester, schedule) {
+make_handout_page <- function(handout, semester, schedule,
+                              dry_run = FALSE) {
   fname <- sprintf("%s.Rmd", handout$doc_slug)
   doc_path <- file.path(semester$root_dir,
                         semester$file_paths['handout_src'], fname) %>%
@@ -64,13 +65,15 @@ make_handout_page <- function(handout, semester, schedule) {
     message("Writing handout page for ",
             handout$key, " to ", doc_path)
   }
-  cat(handout_content, file = doc_path)
+  if (! dry_run) {
+    cat(handout_content, file = doc_path)
+  }
   c(title = handout$doc_title, key = handout$handout_key,
     path = doc_path, url = doc_url)
 }
 
 
-generate_handout <- function(key, semester, schedule) {
+generate_handout <- function(key, semester, schedule, dry_run = FALSE) {
   if (is.null(key) || is.na(key)) {
     return(c(path = NA_character_, url = NA_character_))
   }
@@ -89,12 +92,13 @@ generate_handout <- function(key, semester, schedule) {
             " (index = ", handout$handout_key,
             ", filename = ", fname, ")")
   }
-  handout_page <- make_handout_page(handout, semester, schedule)
+  handout_page <- make_handout_page(handout, semester, schedule,
+                                    dry_run)
   c(path = handout_path, url = handout_url)
 }
 
-generate_handouts <- function(semester, schedule) {
+generate_handouts <- function(semester, schedule, dry_run = FALSE) {
   handouts <- semester$handouts$handout_key %>%
-    purrr::map(~generate_handout(.x, semester, schedule))
+    purrr::map(~generate_handout(.x, semester, schedule, dry_run))
   invisible(handouts)
 }

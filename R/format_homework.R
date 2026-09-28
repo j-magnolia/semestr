@@ -75,7 +75,8 @@ make_hw_solution_page <- function(solution, semester, schedule,
 }
 
 make_hw_solution <- function(solution, assignment, semester, schedule,
-                             slug = NA_character_, use_pdfs = TRUE) {
+                             slug = NA_character_, use_pdfs = TRUE,
+                             dry_run = FALSE) {
   if (is_mt_or_na(slug)) {
     slug = sprintf("homework_%02d", assignment$hw_num)
   }
@@ -94,7 +95,9 @@ make_hw_solution <- function(solution, assignment, semester, schedule,
   hw_solution_page <- make_hw_solution_page(solution, semester,
                                             schedule, slug,
                                             use_pdfs)
-  cat(hw_solution_page, file = solution_path)
+  if (! dry_run) {
+    cat(hw_solution_page, file = solution_path)
+  }
   c(path = solution_path, url = solution_url)
 }
 
@@ -483,7 +486,7 @@ make_hw_asgt_page <- function(key, semester, schedule, use_solutions = FALSE,
 
 generate_hw_assignment <- function(key, semester, schedule,
                                    use_solutions = FALSE,
-                                   use_pdfs = TRUE) {
+                                   use_pdfs = TRUE, dry_run = FALSE) {
   if (is.null(key) || is.na(key)) {
     return(c(hw_page = NA_character_, url = NA_character_))
   }
@@ -511,7 +514,9 @@ generate_hw_assignment <- function(key, semester, schedule,
     message("Writing homework file ", hw_fname, " to ",
             hw_path)
   }
-  cat(hw_page, file = hw_path)
+  if (! dry_run) {
+    cat(hw_page, file = hw_path)
+  }
   c(page = hw_page, url = hw_url)
 }
 

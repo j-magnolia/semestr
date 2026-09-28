@@ -96,23 +96,27 @@ export(update_pdf_dir)
 export(update_pdf_file_digests)
 export(update_pdfs)
 import(rlang)
-importFrom(magrittr,"%$%")
-importFrom(magrittr,"%<>%")
-importFrom(magrittr,"%>%")
-importFrom(magrittr,add)
-importFrom(magrittr,divide_by)
-importFrom(magrittr,divide_by_int)
-importFrom(magrittr,equals)
-importFrom(magrittr,is_greater_than)
-importFrom(magrittr,is_in)
-importFrom(magrittr,is_less_than)
-importFrom(magrittr,is_weakly_greater_than)
-importFrom(magrittr,is_weakly_less_than)
-importFrom(magrittr,mod)
-importFrom(magrittr,multiply_by)
-importFrom(magrittr,not)
-importFrom(magrittr,subtract)
+importFrom(magrittr,
+  "%$%",
+  "%<>%",
+  "%>%",
+  add,
+  divide_by,
+  divide_by_int,
+  equals,
+  is_greater_than,
+  is_in,
+  is_less_than,
+  is_weakly_greater_than,
+  is_weakly_less_than,
+  mod,
+  multiply_by,
+  not,
+  subtract
+)
 importFrom(stats,na.omit)
-importFrom(utils,URLencode)
-importFrom(utils,head)
-importFrom(utils,tail)
+importFrom(utils,
+  URLencode,
+  head,
+  tail
+)

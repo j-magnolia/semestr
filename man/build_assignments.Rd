@@ -4,12 +4,14 @@
 \alias{build_assignments}
 \title{Build reading, homework, and lab assignments}
 \usage{
-build_assignments(schedule, semester)
+build_assignments(schedule, semester, dry_run = FALSE)
 }
 \arguments{
 \item{schedule}{A schedule dataframe.}
 
 \item{semester}{A semester object (list).}
+
+\item{dry_run}{Don't actually write assignment files to disk.}
 }
 \value{
 An updated schedule dataframe

@@ -168,12 +168,12 @@ item_type <- function(cal_id) {
 
 #' Determine the modification type of calendar entry from its calendar id.
 #'
-#' Modifications include canceled and re-scheduled (make-up) classes.
+#' Modifications include canceled and re-scheduled (makeup) classes.
 #'
 #' @param cal_id an integer calendar ID number.
 #'
-#' @return A string identifying the type of modification. Current values are
-#'   "canceled" and "make-up"
+#' @return A string identifying the type of modification. Current
+#'   values are "canceled" and "makeup"
 #'
 #' @export
 item_mod <- function(cal_id) {

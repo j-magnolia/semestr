@@ -796,7 +796,10 @@ load_semester_db <- function(db_file, root_crit = NULL, ignore_root = FALSE) {
   calendar <- calendar %>%
     dplyr::mutate(date = lubridate::as_datetime(.data$date, tz = tz),
                   cal_type = item_type(.data$cal_id),
-                  cal_id = as.integer(.data$cal_id)) %>%
+                  cal_id = as.integer(.data$cal_id),
+                  canceled = as.logical(.data$canceled),
+                  makeup = as.logical(.data$makeup),
+                  ref = as.integer(.data$ref)) %>%
     dplyr::filter(! is.na(.data$date))
 
   bare_dates <- calendar %>% dplyr::select("cal_id", "date")
@@ -987,14 +990,16 @@ load_semester_db <- function(db_file, root_crit = NULL, ignore_root = FALSE) {
   class_topics <- calendar %>%
     dplyr::filter(.data$cal_type == "class") %>%
     dplyr::select("cal_id") %>%
-    dplyr::left_join(dplyr::select(link_cal_class, -"class_key"),
+    dplyr::left_join(dplyr::select(link_cal_class,
+                                   -c("link_id", "class_key")),
                      by = "cal_id") %>%
     dplyr::left_join(dplyr::select(classes, "class_id", "class_key",
                                    topic = "class_title"),
                      by = "class_id")
   if (has_reading) {
     class_topics <- class_topics %>%
-      dplyr::left_join(link_cls_rd, by = "class_key")
+      dplyr::left_join(dplyr::select(link_cls_rd, -"link_id"),
+                       by = "class_key")
   }
   class_topics <- class_topics %>%
     dplyr::select(-"class_id") %>%

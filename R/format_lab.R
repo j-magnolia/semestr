@@ -62,7 +62,8 @@ make_lab_solution_page <- function(sol, semester, schedule,
   lab_solution_page
 }
 
-make_lab_solution <- function(sol, semester, schedule, use_pdfs = TRUE) {
+make_lab_solution <- function(sol, semester, schedule, use_pdfs = TRUE,
+                              dry_run = FALSE) {
   if (getOption("semestr.verbose", default = 1) >= 1) {
     message("Making solutions for lab ", sol$lab_num, ".")
   }
@@ -76,7 +77,9 @@ make_lab_solution <- function(sol, semester, schedule, use_pdfs = TRUE) {
     clean_url()
   lab_solution_page <- make_lab_solution_page(sol, semester, schedule,
                                               use_pdfs)
-  cat(lab_solution_page, file = solution_path)
+  if (! dry_run) {
+    cat(lab_solution_page, file = solution_path)
+  }
   c(title = sol$lab_sol_title, key = sol$lab_grp_key,
     path = solution_path, url = solution_url)
 }
@@ -120,7 +123,8 @@ make_lab_doc_page <- function(doc, semester, schedule, use_pdfs = TRUE) {
   lab_doc_page
 }
 
-make_lab_doc <- function(lab, semester, schedule, use_pdfs = TRUE) {
+make_lab_doc <- function(lab, semester, schedule, use_pdfs = TRUE,
+                         dry_run = FALSE) {
   fname <- sprintf("lab_%02d_%s.Rmd", lab$lab_num, lab$doc_filename)
   doc_path <- file.path(semester$root_dir,
                         semester$file_paths['lab_doc_src'],
@@ -129,7 +133,9 @@ make_lab_doc <- function(lab, semester, schedule, use_pdfs = TRUE) {
   doc_url <- file.path(semester$file_paths['lab_doc_dest'],
                        stringr::str_replace(fname, "\\.Rmd$", "")) %>%
     clean_url()
-  lab_doc_page <- make_lab_doc_page(lab, semester, schedule, use_pdfs)
+  if (! dry_run) {
+    lab_doc_page <- make_lab_doc_page(lab, semester, schedule, use_pdfs)
+  }
   cat(lab_doc_page, file = doc_path)
   c(title = lab$lab_document_title, key = lab$lab_grp_key,
     path = doc_path, url = doc_url)
@@ -294,7 +300,7 @@ make_lab_assignment_page <- function(key, semester, schedule,
 
 generate_lab_assignment <- function(key, semester, schedule,
                                     use_solutions = FALSE,
-                                    use_pdfs = TRUE) {
+                                    use_pdfs = TRUE, dry_run = FALSE) {
   if (is.null(key) || is.na(key)) {
     return(c(path = NA_character_, url = NA_character_))
   }
@@ -319,7 +325,9 @@ generate_lab_assignment <- function(key, semester, schedule,
   lab_assignment_page <-
     make_lab_assignment_page(key, semester, schedule, use_solutions,
                              use_pdfs)
-  cat(lab_assignment_page, file = lab_path)
+  if (! dry_run) {
+    cat(lab_assignment_page, file = lab_path)
+  }
   c(path = lab_path, url = lab_url)
 }
 

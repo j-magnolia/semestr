@@ -89,8 +89,8 @@ default_semestr_metadata <- function() {
     rev_base = c("1000" = "class", "2000" = "homework", "3000" = "lab",
                  "4000" = "due date", "5000" = "exam",  "6000" = "holiday",
                  "7000" = "event"),
-    mods = c(canceled = 100,  make_up = 200),
-    rev_mods = c("100" = "canceled", "200" = "make_up" )
+    mods = c(canceled = 100,  makeup = 200),
+    rev_mods = c("100" = "canceled", "200" = "makeup" )
   )
 }
 

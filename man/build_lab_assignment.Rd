@@ -4,7 +4,7 @@
 \alias{build_lab_assignment}
 \title{Build a lab assignment}
 \usage{
-build_lab_assignment(schedule, date, cal_entry, semester)
+build_lab_assignment(schedule, date, cal_entry, semester, dry_run = FALSE)
 }
 \arguments{
 \item{schedule}{A schedule data frame.}
@@ -14,6 +14,8 @@ build_lab_assignment(schedule, date, cal_entry, semester)
 \item{cal_entry}{A calendar entry for the lab session.}
 
 \item{semester}{A list of data for the semester, from the database.}
+
+\item{dry_run}{Don't actually write assignment files to disk.}
 }
 \value{
 An updated schedule data frame
