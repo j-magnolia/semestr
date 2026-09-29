@@ -1,4 +1,8 @@
-# semestr 0.4.0
+# semestr 0.6.0
+
+* Replaced magrittr pipes with native pipes throughout.
+
+# semestr 0.5.0
 
 * Feature: Handle canceled and makeup classes from database.
 

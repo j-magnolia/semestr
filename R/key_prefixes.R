@@ -57,7 +57,7 @@ strip_key_prefix.data.frame <- function(x, type, col = "cal_key", ...) {
   col <- ensym(col)
   col <- enquo(col)
 
-  x <- x %>% dplyr::mutate(!!col := strip_key_prefix(!!col, type))
+  x <- x |> dplyr::mutate(!!col := strip_key_prefix(!!col, type))
 
   invisible(x)
 }
@@ -118,7 +118,7 @@ add_key_prefix.data.frame <- function(x, type, col = "cal_key", ...) {
   col <- ensym(col)
   col <- enquo(col)
 
-  x <- x %>% dplyr::mutate(!!col := add_key_prefix(!!col, type))
+  x <- x |> dplyr::mutate(!!col := add_key_prefix(!!col, type))
   invisible(x)
 }
 

@@ -161,8 +161,9 @@ base2type <- function(base) {
 #' @export
 item_type <- function(cal_id) {
   metadata <- get_semestr_metadata()
-  base <- as.integer(cal_id) %>%
-    divide_by_int(1000) %>% multiply_by(1000) %>% as.character()
+  base <- as.integer(cal_id) |>
+    magrittr::divide_by_int(1000) |> magrittr::multiply_by(1000) |>
+    as.character()
   metadata$rev_base[base]
 }
 
@@ -178,8 +179,9 @@ item_type <- function(cal_id) {
 #' @export
 item_mod <- function(cal_id) {
   metadata <- get_semestr_metadata()
-  base_mod <- as.integer(cal_id) %/% mod(1000) %>%
-    divide_by_int(100) %>% multiply_by(100) %>% as.character()
+  base_mod <- as.integer(cal_id) |> magrittr::mod(1000) |>
+    magrittr::divide_by_int(100) |> magrittr::multiply_by(100) |>
+    as.character()
   metadata$rev_mod[base_mod]
 }
 

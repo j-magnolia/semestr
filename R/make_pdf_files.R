@@ -57,8 +57,8 @@ pdf_filename <- function(pdf_url, root_dir, static_path = "static",
   #         ", URL = ", pdf_url)
   verbose <- verbose || getOption("semestr.verbose", default=0) >= 2
   if (is.na(pdf_url)) return(NA_character_)
-  dest_dir <- file.path(root_dir, static_path) %>%
-    cat_path(dirname(pdf_url)) %>% normalizePath(winslash = "/")
+  dest_dir <- file.path(root_dir, static_path) |>
+    cat_path(dirname(pdf_url)) |> normalizePath(winslash = "/")
   # message("testing for dest path ", dest_dir)
   if (! dir.exists(dest_dir))
     if (force_dest) {
@@ -163,7 +163,7 @@ build_pdf_from_rmd <- function(source_file, root_dir, static_path = "static",
     warning("Unknown type: ", type)
   }
 
-  options <- list(par_date = date, par_subtitle = subtitle) %>%
+  options <- list(par_date = date, par_subtitle = subtitle) |>
     purrr::discard(is.null)
 
   if (verbose >= 1) {
@@ -216,7 +216,7 @@ build_pdf_files <- function(semester, content_path = "content",
   if (! is.null(semester$latex_style)) {
     output_options = as.list(output_options)
     output_options$includes$in_header =
-      c(output_options$includes$in_header, semester$latex_style) %>%
+      c(output_options$includes$in_header, semester$latex_style) |>
       unique()
     }
 

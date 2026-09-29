@@ -1,5 +1,5 @@
 get_handout <- function(key, semester) {
-  handout <- semester$handouts %>%
+  handout <- semester$handouts |>
     dplyr::filter(.data$handout_key == key)
   assertthat::assert_that(nrow(handout) == 1,
                           msg = stringr::str_c(
@@ -29,9 +29,9 @@ make_handout <- function(doc, semester, schedule) {
     bibliography = doc$bibliography,
     slug = slug,
     pdf_url = file.path(semester$file_paths['handout_pdf'],
-                        stringr::str_c(slug, ".pdf")) %>% clean_url(),
+                        stringr::str_c(slug, ".pdf")) |> clean_url(),
     params = list(
-      par_date = lubridate::as_date(doc$date) %>% as.character(),
+      par_date = lubridate::as_date(doc$date) |> as.character(),
       par_subtitle = NULL
     )
   )
@@ -40,8 +40,8 @@ make_handout <- function(doc, semester, schedule) {
       list(md_extensions = get_md_extensions(),
            toc = TRUE)
   )
-  header <- header %>% purrr::discard(is_mt_or_na) %>%
-    yaml::as.yaml() %>% stringr::str_trim("right") %>%
+  header <- header |> purrr::discard(is_mt_or_na) |>
+    yaml::as.yaml() |> stringr::str_trim("right") |>
     stringr::str_c(delim, ., delim, sep = "\n")
   context <- make_context(doc, "handout", semester)
   handout_page <- cat_nl(header, make_handout_content(doc, semester))
@@ -54,11 +54,11 @@ make_handout_page <- function(handout, semester, schedule,
                               dry_run = FALSE) {
   fname <- sprintf("%s.Rmd", handout$doc_slug)
   doc_path <- file.path(semester$root_dir,
-                        semester$file_paths['handout_src'], fname) %>%
+                        semester$file_paths['handout_src'], fname) |>
                           clean_path()
   doc_url <-
     file.path(semester$file_paths['rd_asgt_dest'],
-              stringr::str_replace(fname, "\\.Rmd$", "")) %>%
+              stringr::str_replace(fname, "\\.Rmd$", "")) |>
     clean_url()
   handout_content <- make_handout(handout, semester, schedule)
   if(getOption("semestr.verbose", default = 1) >= 1) {
@@ -82,10 +82,10 @@ generate_handout <- function(key, semester, schedule, dry_run = FALSE) {
   fname <- sprintf("%s.Rmd", handout$doc_slug)
   handout_path <- file.path(semester$root_dir,
                             semester$file_paths['handout_src'],
-                            fname) %>%
+                            fname) |>
     clean_path()
   handout_url <- file.path(semester$file_paths['handout_dest'],
-                           stringr::str_replace(fname, "\\.Rmd$", "")) %>%
+                           stringr::str_replace(fname, "\\.Rmd$", "")) |>
     clean_url()
   if (getOption("semestr.verbose", default = 1) >= 1) {
     message("Making handout page for ", handout$doc_title,
@@ -98,7 +98,7 @@ generate_handout <- function(key, semester, schedule, dry_run = FALSE) {
 }
 
 generate_handouts <- function(semester, schedule, dry_run = FALSE) {
-  handouts <- semester$handouts$handout_key %>%
+  handouts <- semester$handouts$handout_key |>
     purrr::map(~generate_handout(.x, semester, schedule, dry_run))
   invisible(handouts)
 }

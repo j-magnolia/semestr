@@ -16,7 +16,7 @@ make_rmd_output_format <- function(toc = FALSE, toc_depth = NULL,
              toc = toc),
       pdf_document =
         list(md_extensions = get_md_extensions(), toc = toc,
-             toc_depth = toc_depth, includes = includes) %>%
+             toc_depth = toc_depth, includes = includes) |>
         purrr::discard(is.null)
     )
   )

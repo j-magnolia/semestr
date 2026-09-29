@@ -8,9 +8,6 @@ S3method(semestr::strip_key_prefix,character)
 S3method(semestr::strip_key_prefix,default)
 S3method(semestr::strip_key_prefix,list)
 S3method(strip_key_prefix,data.frame)
-export("%$%")
-export("%<>%")
-export("%>%")
 export(add_period)
 export(append_newline_if_needed)
 export(base2type)
@@ -97,24 +94,6 @@ export(update_pdf_dir)
 export(update_pdf_file_digests)
 export(update_pdfs)
 import(rlang)
-importFrom(magrittr,
-  "%$%",
-  "%<>%",
-  "%>%",
-  add,
-  divide_by,
-  divide_by_int,
-  equals,
-  is_greater_than,
-  is_in,
-  is_less_than,
-  is_weakly_greater_than,
-  is_weakly_less_than,
-  mod,
-  multiply_by,
-  not,
-  subtract
-)
 importFrom(stats,na.omit)
 importFrom(utils,
   URLencode,

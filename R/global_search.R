@@ -13,9 +13,9 @@ global_search <- function(df_lst, pattern) {
   for (nm in names(df_lst)) {
     df = df_lst[[nm]]
     if (is.data.frame(df)) {
-      hits <- df %>%
+      hits <- df |>
         dplyr::filter(dplyr::across(where(is.character),
-                                    ~stringr::str_detect(.x, pattern)) %>%
+                                    ~stringr::str_detect(.x, pattern)) |>
                         purrr::reduce(`|`))
       if (nrow(hits) > 0) {
         hit_list[[nm]] <- hits
@@ -37,7 +37,7 @@ global_search <- function(df_lst, pattern) {
 #'
 #' @export
 col_search <- function(df, pattern) {
-  df %>% dplyr::mutate(dplyr::across(where(is.character),
+  df |> dplyr::mutate(dplyr::across(where(is.character),
                                      ~stringr::str_detect(.x, pattern)))
 }
 
@@ -54,7 +54,7 @@ col_search <- function(df, pattern) {
 #'
 #' @export
 col_search_sum <- function(df, pattern, na.rm = TRUE) {
-  df %>% dplyr::summarize(dplyr::across(where(is.character),
+  df |> dplyr::summarize(dplyr::across(where(is.character),
                                         ~sum(stringr::str_detect(., pattern),
                                              na.rm = na.rm)))
 }
@@ -72,7 +72,7 @@ col_search_sum <- function(df, pattern, na.rm = TRUE) {
 #'
 #' @export
 col_replace <- function(df, pattern, replacement) {
-  df <- df %>%
+  df <- df |>
     dplyr::mutate(dplyr::across(where(is.character),
                                 ~stringr::str_replace_all(.x, pattern, replacement)))
   invisible(df)
@@ -91,7 +91,7 @@ col_replace <- function(df, pattern, replacement) {
 #'
 #' @export
 global_col_search <- function(df_lst, pattern) {
-  global_search(df_lst, pattern) %>%
+  global_search(df_lst, pattern) |>
     purrr::map(~col_search(.x, pattern))
 }
 
@@ -108,7 +108,7 @@ global_col_search <- function(df_lst, pattern) {
 #'
 #' @export
 global_col_search_sum <- function(df_lst, pattern) {
-  global_search(df_lst, pattern) %>%
+  global_search(df_lst, pattern) |>
     purrr::map(~col_search_sum(.x, pattern))
 }
 
@@ -128,7 +128,7 @@ global_replace <- function(df_lst, pattern, replacement) {
   for (nm in names(df_lst)) {
     df = df_lst[[nm]]
     if (is.data.frame(df)) {
-      df <- df %>%
+      df <- df |>
         dplyr::mutate(dplyr::across(where(is.character),
                                     ~stringr::str_replace_all(.x, pattern, replacement)))
       df_lst[[nm]] <- df

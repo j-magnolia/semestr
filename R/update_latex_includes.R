@@ -18,7 +18,7 @@ update_latex_styles <- function(root_dir = NULL, content_path = "content",
   }
   root_dir <- normalizePath(root_dir, winslash = "/")
   src_files <- list.files(file.path(root_dir, planning_path, "latex_includes"),
-                          pattern = "\\.(tex|sty)$", full.names = TRUE) %>%
+                          pattern = "\\.(tex|sty)$", full.names = TRUE) |>
     normalizePath(winslash = "/")
   if (length(src_files) == 0)
     return(invisible(NULL))

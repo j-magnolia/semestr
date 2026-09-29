@@ -12,5 +12,5 @@ make_notice <- function(notice_entries) {
                              notice_entries$notice, "",
                              sep = "\n")
   }
-  output %>% escape_dollar()
+  output |> escape_dollar()
 }

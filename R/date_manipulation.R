@@ -5,7 +5,7 @@ merge_dates <- function(df, semester, id_col = "cal_id", date_col = "date", ...)
   date_col <- enquo(date_col)
   dots <- enquos(...)
 
-  df <- df %>% dplyr::left_join( dplyr::select(semester$calendar,
+  df <- df |> dplyr::left_join( dplyr::select(semester$calendar,
                                                !!qid_col := "cal_id",
                                                !!date_col := "date",
                                                !!!dots),
@@ -16,7 +16,7 @@ make_pub_date <- function(first_date, tz = NULL) {
   if (is.null(tz)) {
     tz = get_semestr_tz()
   }
-  pub_date <- first_date %>% lubridate::as_date(tz = tz) %>%
+  pub_date <- first_date |> lubridate::as_date(tz = tz) |>
     lubridate::rollback()
   if (lubridate::today() < pub_date) pub_date <- lubridate::today()
   pub_date

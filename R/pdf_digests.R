@@ -94,17 +94,17 @@ update_pdf_file_digests <- function (files, root_dir, static_path = "static",
   if (is.null(root_dir)) {
     root_dir <- find_root_dir(use_globals = TRUE)
   }
-  root_dir <- root_dir %>% normalizePath(winslash = "/")
+  root_dir <- root_dir |> normalizePath(winslash = "/")
   static_path <- strip_leading_slash(static_path)
   content_path <- strip_leading_slash(content_path)
   content_base <- file.path(root_dir, content_path)
-  files <- files %>% purrr::discard(is.na) %>%
-    normalizePath(winslash = "/") %>%
-    unique() %>% purrr::keep(file.exists)
-  dest_urls <- files %>% get_pdf_url()
+  files <- files |> purrr::discard(is.na) |>
+    normalizePath(winslash = "/") |>
+    unique() |> purrr::keep(file.exists)
+  dest_urls <- files |> get_pdf_url()
   digests <- tibble::tibble( file = files,
-                             dest = dest_urls) %>%
-    dplyr::filter(! is.na(.data$dest)) %>%
+                             dest = dest_urls) |>
+    dplyr::filter(! is.na(.data$dest)) |>
     dplyr::mutate(
       dest = purrr::map_chr(.data$dest, ~pdf_filename(.x, root_dir = root_dir,
                                                 static_path = static_path)),
@@ -119,7 +119,7 @@ update_pdf_file_digests <- function (files, root_dir, static_path = "static",
 
   digest_file <- file.path(root_dir, "pdf_digests.Rds")
   if (partial && file.exists(digest_file)) {
-    old_digests <- readr::read_rds(digest_file) %>%
+    old_digests <- readr::read_rds(digest_file) |>
       dplyr::filter(! file %in% digests$file)
     digests <- dplyr::bind_rows(digests, old_digests)
   }
@@ -180,8 +180,8 @@ pdf_needs_rebuild <- function(current_digest, current_dest_digest,
 #' @keywords internal
 pdfs_to_rebuild <- function(files, root_dir, static_path = "static",
                              content_path = "content") {
-  root_dir <- root_dir %>% normalizePath(winslash = "/")
-  files <- files %>% normalizePath(winslash = "/") %>%  unique() %>%
+  root_dir <- root_dir |> normalizePath(winslash = "/")
+  files <- files |> normalizePath(winslash = "/") |>  unique() |>
     purrr::keep(file.exists)
 
 
@@ -190,7 +190,7 @@ pdfs_to_rebuild <- function(files, root_dir, static_path = "static",
 
   df$rebuild = pdf_needs_rebuild(df$cur_digest, df$cur_dest_digest,
                              df$digest, df$dest_digest)
-  df %>% dplyr::filter(.data$rebuild) %>% dplyr::pull("file")
+  df |> dplyr::filter(.data$rebuild) |> dplyr::pull("file")
 }
 
 
@@ -260,7 +260,7 @@ update_pdfs <-  function(dir = NULL, root_dir = NULL,
   } else {
     to_build <- pdfs_to_rebuild(files, root_dir, static_path, content_path)
   }
-  to_build <- normalizePath(to_build, winslash = "/") %>%
+  to_build <- normalizePath(to_build, winslash = "/") |>
     stringr::str_replace(stringr::fixed(cd), "")
   # message("To build: ", stringr::str_c(to_build, collapse = ", "))
 
@@ -330,7 +330,7 @@ update_pdf_dir <- function(dir = '.', root_dir = NULL, static_path = "static",
   cd <-  paste0(normalizePath(getwd(), winslash = "/"), "/")
 
   if (! is.na(ignore))
-    files <- files %>% purrr::discard(~stringr::str_detect(.x, ignore))
+    files <- files |> purrr::discard(~stringr::str_detect(.x, ignore))
 
   files <- find_assignment_rmds(root_dir, content_path, targets = dir)
   if (force) {
@@ -338,7 +338,7 @@ update_pdf_dir <- function(dir = '.', root_dir = NULL, static_path = "static",
   } else {
     to_build <- pdfs_to_rebuild(files, root_dir, static_path, content_path)
   }
-  to_build <- normalizePath(to_build, winslash = "/") %>%
+  to_build <- normalizePath(to_build, winslash = "/") |>
     stringr::str_replace(stringr::fixed(cd), "")
   # message("To build: ", stringr::str_c(to_build, collapse = ", "))
 
@@ -392,16 +392,16 @@ get_current_pdf_digests <- function(files, root_dir = NULL,
   if (is.null(root_dir)) {
     root_dir <- find_root_dir(".", use_globals = TRUE)
   }
-  root_dir <- root_dir %>% normalizePath(winslash = "/")
+  root_dir <- root_dir |> normalizePath(winslash = "/")
 
-  files <- files %>% purrr::discard(is.na) %>%
-    normalizePath(winslash = "/") %>%
-    unique() %>% purrr::keep(file.exists)
+  files <- files |> purrr::discard(is.na) |>
+    normalizePath(winslash = "/") |>
+    unique() |> purrr::keep(file.exists)
 
-  dest_urls <- files %>% get_pdf_url()
+  dest_urls <- files |> get_pdf_url()
   df <- tibble::tibble( file = files,
-                        dest = dest_urls) %>%
-    dplyr::filter(! is.na(.data$dest)) %>%
+                        dest = dest_urls) |>
+    dplyr::filter(! is.na(.data$dest)) |>
     dplyr::mutate(
       dest = purrr::map_chr(.data$dest, ~pdf_filename(.x, root_dir = root_dir,
                                                 static_path = static_path,
@@ -411,8 +411,8 @@ get_current_pdf_digests <- function(files, root_dir = NULL,
   digest_file <- file.path(root_dir, "pdf_digests.Rds")
 
   if (file.exists(digest_file)) {
-    digests <- readr::read_rds(digest_file) %>%
-      dplyr::mutate(file = stringr::str_replace(file, "^~", root_dir)) %>%
+    digests <- readr::read_rds(digest_file) |>
+      dplyr::mutate(file = stringr::str_replace(file, "^~", root_dir)) |>
       # Don't store the name of the output file because we're going to
       # merge digest with df by source file path, and df already has a dest
       # column.
@@ -423,13 +423,13 @@ get_current_pdf_digests <- function(files, root_dir = NULL,
   } else {
     # If there isn't a digest file, then the site has not been updated
     # previously, so we store NA's and build the whole site.
-    df <- df %>% dplyr::mutate(
+    df <- df |> dplyr::mutate(
       digest = NA_character_,
       dest_digest = NA_character_,
       alg = NA_character_)
   }
 
-  df <- df %>%
+  df <- df |>
     dplyr::mutate(
       cur_dgst_lst = purrr::map2(.data$file, .data$alg,
                                  ~pdf_digest_if_exists(.x, .y)),
@@ -437,11 +437,11 @@ get_current_pdf_digests <- function(files, root_dir = NULL,
       cur_digest = purrr::map_chr(.data$cur_dgst_lst, ~.x['digest']),
       cur_dest_digest = purrr::map2_chr(.data$dest, .data$alg,
                                         ~pdf_digest_if_exists(.x, .y)['digest'])
-      ) %>%
+      ) |>
     dplyr::select(-"cur_dgst_lst")
 
   # Organize columns in an aesthetically pleasing order.
-  df <- df %>% dplyr::select("file", "dest", "alg", "digest", "dest_digest",
+  df <- df |> dplyr::select("file", "dest", "alg", "digest", "dest_digest",
                             "cur_digest", "cur_dest_digest")
   invisible(df)
 }
@@ -482,9 +482,9 @@ get_current_pdf_digests <- function(files, root_dir = NULL,
 update_pdf_digests <- function(dir = NULL, root_dir = NULL,
                                static_path = "static", content_path = "content",
                                partial = FALSE) {
-  find_assignment_rmds(root_dir, content_path, targets = dir) %>%
+  find_assignment_rmds(root_dir, content_path, targets = dir) |>
     update_pdf_file_digests(root_dir = root_dir, static_path = static_path,
-                       content_path = content_path, partial = partial) %>%
+                       content_path = content_path, partial = partial) |>
     invisible()
 }
 
@@ -511,13 +511,13 @@ prune_pdf_digests <- function(files, root_dir = NULL) {
     root_dir <- find_root_dir(use_globals = TRUE)
   }
   root_dir <-  root_dir
-  files <-  files %>% normalizePath(winslash = "/") %>% unique() %>%
+  files <-  files |> normalizePath(winslash = "/") |> unique() |>
     stringr::str_replace(stringr::fixed(root_dir), "~")
 
   digest_file <- file.path(root_dir, "pdf_digests.Rds")
 
   if (length(files) && file.exists(digest_file)) {
-    digests <- readr::read_rds(digest_file) %>%
+    digests <- readr::read_rds(digest_file) |>
       dplyr::filter(! file %in% files)
     readr::write_rds(digests, digest_file)
   }

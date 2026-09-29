@@ -103,7 +103,7 @@ concat_with_nl <- function(s, ..., start_par = FALSE, extra_lines = 0,
                                  start_par, extra_lines, collapse)
   if (stringr::str_starts(s2, stringr::fixed("\n")) &&
       stringr::str_ends(s, stringr::fixed("\n\n"))) {
-    s <- s %>% stringr::str_replace_all("\n+$", "\n")
+    s <- s |> stringr::str_replace_all("\n+$", "\n")
   }
   stringr::str_c(s, s2, sep = collapse)
 }
@@ -278,7 +278,7 @@ NULL
 #'
 #' @export
 format_date_by_cal_id <- function(calendar, id, abbr = TRUE) {
-  d <- calendar %>% dplyr::filter(.data$cal_type == "class", .data$cal_id == id)
+  d <- calendar |> dplyr::filter(.data$cal_type == "class", .data$cal_id == id)
   format_class_date(d$date, abbr)
 }
 
@@ -289,7 +289,7 @@ format_date_by_cal_id <- function(calendar, id, abbr = TRUE) {
 #'
 #' @export
 format_date_by_class_num <- function(calendar, num, abbr = TRUE) {
-  d <- calendar %>% dplyr::filter(.data$cal_type == "class", .data$class_num == num)
+  d <- calendar |> dplyr::filter(.data$cal_type == "class", .data$class_num == num)
   format_class_date(d$date, abbr)
 }
 
@@ -322,7 +322,7 @@ format_date_by_key <- function(calendar, key,
     key <- add_key_prefix(key, type)
   }
 
-  d <- calendar %>% dplyr::filter(.data$cal_key == key)
+  d <- calendar |> dplyr::filter(.data$cal_key == key)
   format_class_date(d$date, abbr)
 }
 
@@ -339,7 +339,7 @@ format_date_by_key <- function(calendar, key,
 #' @export
 format_day_date_by_cal_id <- function(calendar, id, abbr_month = TRUE,
                                       abbr_wday = TRUE) {
-  d <- calendar %>% dplyr::filter(.data$cal_type == "class", .data$cal_id == id)
+  d <- calendar |> dplyr::filter(.data$cal_type == "class", .data$cal_id == id)
   format_class_day_date(d$date, abbr_month, abbr_wday)
 }
 
@@ -353,7 +353,7 @@ format_day_date_by_cal_id <- function(calendar, id, abbr_month = TRUE,
 #' @export
 format_day_date_by_class_num <- function(calendar, num, abbr_month = TRUE,
                                          abbr_wday = TRUE) {
-  d <- calendar %>% dplyr::filter(.data$cal_type == "class", .data$class_num == num)
+  d <- calendar |> dplyr::filter(.data$cal_type == "class", .data$class_num == num)
   format_class_day_date(d$date, abbr_month, abbr_wday)
 }
 
@@ -372,7 +372,7 @@ format_day_date_by_key <- function(calendar, key,
     key <- add_key_prefix(key, type)
   }
 
-  d <- calendar %>% dplyr::filter(.data$cal_key == key)
+  d <- calendar |> dplyr::filter(.data$cal_key == key)
   format_class_day_date(d$date, abbr_month, abbr_wday)
 }
 
@@ -422,9 +422,9 @@ NULL
 #' @export
 format_date_range_by_cal_id <- function(calendar, cal_ids, abbr = TRUE,
                                         days = FALSE, abbr_wday = NULL) {
-  dates <- calendar %>%
-    dplyr::filter(.data$cal_id %in% na.omit(cal_ids)) %>%
-    dplyr::pull("date") %>%
+  dates <- calendar |>
+    dplyr::filter(.data$cal_id %in% na.omit(cal_ids)) |>
+    dplyr::pull("date") |>
     sanitize_date_range()
 
   if (days) {
@@ -444,9 +444,9 @@ format_date_range_by_cal_id <- function(calendar, cal_ids, abbr = TRUE,
 format_date_range_by_class_num <- function(calendar, nums, abbr = TRUE,
                                            days = FALSE, abbr_wday = NULL) {
   col <- c()
-  dates <- calendar %>%
-    dplyr::filter(.data$class_num %in% na.omit(nums)) %>%
-    dplyr::pull("date") %>%
+  dates <- calendar |>
+    dplyr::filter(.data$class_num %in% na.omit(nums)) |>
+    dplyr::pull("date") |>
     sanitize_date_range()
   if (days) {
     if (is.null(abbr_wday))
@@ -483,9 +483,9 @@ format_date_range_by_key <- function(calendar, keys,
 
   }
 
-  dates <- calendar %>%
-    dplyr::filter(.data$cal_key %in% keys) %>%
-    dplyr::pull("date") %>%
+  dates <- calendar |>
+    dplyr::filter(.data$cal_key %in% keys) |>
+    dplyr::pull("date") |>
     sanitize_date_range()
   if (days) {
     if (is.null(abbr_wday))
@@ -505,9 +505,9 @@ format_date_range_by_key <- function(calendar, keys,
 #' @export
 format_date_range_by_event_id <- function(calendar, event_ids, abbr = TRUE,
                                           days = FALSE, abbr_wday = NULL) {
-  dates <- calendar %>%
-    dplyr::filter(.data$event_id %in% event_ids) %>%
-    dplyr::pull("date") %>%
+  dates <- calendar |>
+    dplyr::filter(.data$event_id %in% event_ids) |>
+    dplyr::pull("date") |>
     sanitize_date_range()
   if (days) {
     if (is.null(abbr_wday))
@@ -536,7 +536,7 @@ format_date_range_by_event_id <- function(calendar, event_ids, abbr = TRUE,
 #' format_page_range("50--75")
 #' @export
 format_page_range <- function(pages) {
-  str <- stringr::str_trim(pages) %>% stringr::str_replace_all("^p+\\. *", "")
+  str <- stringr::str_trim(pages) |> stringr::str_replace_all("^p+\\. *", "")
   multiple <- stringr::str_detect(pages, "-+|,|;| and ")
   stringr::str_c(ifelse(multiple, "pp. ", "p. "), pages)
 }
@@ -560,17 +560,17 @@ format_page_range <- function(pages) {
 #'
 #' @export
 add_period <- function(str) {
-  stringr::str_trim(str, "right") %>%
+  stringr::str_trim(str, "right") |>
     stringr::str_replace("([^.?!])$", "\\1.")
 }
 
 item_format <- function(str, item_text, pad_len) {
-  lines <- stringr::str_split(str, "\n") %>% purrr::simplify()
+  lines <- stringr::str_split(str, "\n") |> purrr::simplify()
   pad_text <- stringr::str_dup(" ", stringr::str_length(item_text))
   left_pad <- c(item_text, rep(pad_text, length(lines) - 1))
   output <- stringr::str_c(stringr::str_dup(" ", pad_len),
-                           left_pad, " ", lines) %>%
-    stringr::str_trim("right") %>% stringr::str_c(collapse = "\n") %>%
+                           left_pad, " ", lines) |>
+    stringr::str_trim("right") |> stringr::str_c(collapse = "\n") |>
     stringr::str_trim("right")
   if (stringr::str_detect(output, "\n\n")) {
     output <- stringr::str_c(output, "\n")
@@ -596,13 +596,13 @@ add_level <- function(pad_len = 0,
 }
 
 itemize <- function(text, pad_len = 0) {
-  purrr::map_chr(text, ~item_format(.x, "*", pad_len)) %>%
+  purrr::map_chr(text, ~item_format(.x, "*", pad_len)) |>
     stringr::str_c(collapse = "\n")
 }
 
 
 enumerate <- function(text, pad_len = 0, enum_type = "#.") {
-  purrr::map_chr(text, ~item_format(.x, enum_type, pad_len)) %>%
+  purrr::map_chr(text, ~item_format(.x, enum_type, pad_len)) |>
     stringr::str_c(collapse = "\n")
 }
 

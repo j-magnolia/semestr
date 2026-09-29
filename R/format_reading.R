@@ -34,7 +34,7 @@ format_textbook_reading_item <- function(reading_item) {
   if (! is_mt_or_na(reading_item$pages)) {
     output <- stringr::str_c(output, ", ", reading_item$pages)
   }
-  output <- output %>% stringr::str_trim() %>% add_period()
+  output <- output |> stringr::str_trim() |> add_period()
   output
 }
 
@@ -47,8 +47,8 @@ format_textbook_reading <- function(reading_list) {
   # Jenny Bryan.
   # See https://speakerdeck.com/jennybc/row-oriented-workflows-in-r-with-the-tidyverse?slide=40
   if (nrow(reading_list) > 0) {
-    output <- reading_list %>%
-      purrr::pmap(list) %>%
+    output <- reading_list |>
+      purrr::pmap(list) |>
       purrr::map_chr(format_textbook_reading_item)
   }  else {
     output <- NULL
@@ -80,8 +80,8 @@ format_handout_reading_item <- function(reading_item, online_location = getOptio
   if (! is_mt_or_na(reading_item$pages)) {
     output <- stringr::str_c(output, ", ", reading_item$pages)
   }
-  output <- output %>% stringr::str_trim() %>%
-    stringr::str_c(loc) %>%
+  output <- output |> stringr::str_trim() |>
+    stringr::str_c(loc) |>
     add_period()
   output
 }
@@ -92,7 +92,7 @@ format_handout_reading_item <- function(reading_item, online_location = getOptio
 #' @export
 format_handout_reading <- function(reading_list) {
   if (nrow(reading_list) > 0) {
-    output <- reading_list %>% purrr::pmap(list) %>%
+    output <- reading_list |> purrr::pmap(list) |>
       purrr::map_chr(format_handout_reading_item)
   } else {
     output <- NULL
@@ -123,8 +123,8 @@ format_web_reading_item <- function(reading_item, online_location = getOption("s
   if (! is_mt_or_na(reading_item$pages)) {
     output <- stringr::str_c(output, ", ", reading_item$pages)
   }
-  output <- output %>% stringr::str_trim() %>%
-    stringr::str_c(loc) %>%
+  output <- output |> stringr::str_trim() |>
+    stringr::str_c(loc) |>
     add_period()
   output
 }
@@ -135,7 +135,7 @@ format_web_reading_item <- function(reading_item, online_location = getOption("s
 #' @export
 format_web_reading <- function(reading_list) {
   if (nrow(reading_list) > 0) {
-    output <- reading_list %>% purrr::pmap(list) %>%
+    output <- reading_list |> purrr::pmap(list) |>
       purrr::map_chr(format_web_reading_item)
   } else {
     output <- NULL
@@ -166,8 +166,8 @@ format_youtube_reading_item <- function(reading_item, online_location = getOptio
   if (! is_mt_or_na(reading_item$pages)) {
     output <- stringr::str_c(output, ", ", reading_item$pages)
   }
-  output <- output %>% stringr::str_trim() %>%
-    stringr::str_c(loc) %>%
+  output <- output |> stringr::str_trim() |>
+    stringr::str_c(loc) |>
     add_period()
   output
 }
@@ -178,7 +178,7 @@ format_youtube_reading_item <- function(reading_item, online_location = getOptio
 #' @export
 format_youtube_reading <- function(reading_list) {
   if (nrow(reading_list) > 0) {
-    output <- reading_list %>% purrr::pmap(list) %>%
+    output <- reading_list |> purrr::pmap(list) |>
       purrr::map_chr(format_youtube_reading_item)
   } else {
     output <- NULL
@@ -198,54 +198,54 @@ format_youtube_reading <- function(reading_list) {
 #'
 #' @keywords internal
 make_reading_assignment <- function(reading_entry) {
-  reading_entry <- reading_entry %>%
+  reading_entry <- reading_entry |>
     dplyr::arrange(dplyr::desc(.data$rd_prologue), .data$rd_epilogue,
                    .data$rd_item_id)
-  textbook_reading <- reading_entry %>%
+  textbook_reading <- reading_entry |>
     dplyr::filter(.data$textbook,
                   ! (.data$optional | .data$undergraduate_only |
                        .data$graduate_only ))
-  handout_reading <- reading_entry %>%
+  handout_reading <- reading_entry |>
     dplyr::filter(.data$handout,
                   ! (.data$optional | .data$undergraduate_only |
                        .data$graduate_only ))
-  web_reading <- reading_entry %>%
+  web_reading <- reading_entry |>
     dplyr::filter(.data$web_page,
                   ! (.data$optional | .data$undergraduate_only |
                        .data$graduate_only ))
-  youtube_videos <- reading_entry %>%
+  youtube_videos <- reading_entry |>
     dplyr::filter(.data$youtube,
                   ! (.data$optional | .data$undergraduate_only |
                        .data$graduate_only ))
-  ugrad_textbook_reading <- reading_entry %>%
+  ugrad_textbook_reading <- reading_entry |>
     dplyr::filter(.data$textbook, .data$undergraduate_only )
-  ugrad_handout_reading <- reading_entry %>%
+  ugrad_handout_reading <- reading_entry |>
     dplyr::filter(.data$handout, .data$undergraduate_only )
-  ugrad_web_reading <- reading_entry %>%
+  ugrad_web_reading <- reading_entry |>
     dplyr::filter(.data$web_page, .data$undergraduate_only )
-  ugrad_youtube_videos <- reading_entry %>%
+  ugrad_youtube_videos <- reading_entry |>
     dplyr::filter(.data$youtube, .data$undergraduate_only )
-  grad_textbook_reading <- reading_entry %>%
+  grad_textbook_reading <- reading_entry |>
     dplyr::filter(.data$textbook, .data$graduate_only )
-  grad_handout_reading <- reading_entry %>%
+  grad_handout_reading <- reading_entry |>
     dplyr::filter(.data$handout, .data$graduate_only )
-  grad_web_reading <- reading_entry %>%
+  grad_web_reading <- reading_entry |>
     dplyr::filter(.data$web_page, .data$graduate_only )
-  grad_youtube_videos <- reading_entry %>%
+  grad_youtube_videos <- reading_entry |>
     dplyr::filter(.data$youtube, .data$graduate_only )
-  optional_textbook_reading <- reading_entry %>%
+  optional_textbook_reading <- reading_entry |>
     dplyr::filter(.data$textbook, .data$optional)
-  optional_handout_reading <- reading_entry %>%
+  optional_handout_reading <- reading_entry |>
     dplyr::filter(.data$handout, .data$optional)
-  optional_web_reading <- reading_entry %>%
+  optional_web_reading <- reading_entry |>
     dplyr::filter(.data$web_page, .data$optional)
-  optional_youtube_videos <- reading_entry %>%
+  optional_youtube_videos <- reading_entry |>
     dplyr::filter(.data$youtube, .data$optional)
 
-  reading_notes <- reading_entry %>%
+  reading_notes <- reading_entry |>
     dplyr::filter(!is.na(.data$reading_notes))
 
-  youtube_items <- reading_entry %>%
+  youtube_items <- reading_entry |>
     dplyr::filter(.data$youtube)
 
   has_req_reading <- (nrow(textbook_reading) + nrow(handout_reading) +
@@ -278,7 +278,7 @@ make_reading_assignment <- function(reading_entry) {
       readings <- c(format_textbook_reading(textbook_reading),
                     format_handout_reading(handout_reading),
                     format_web_reading(web_reading),
-                    format_youtube_reading(youtube_videos)) %>%
+                    format_youtube_reading(youtube_videos)) |>
         itemize()
       output <- stringr::str_c(stringr::str_trim(output),
                                "",
@@ -290,7 +290,7 @@ make_reading_assignment <- function(reading_entry) {
       ug_readings <- c(format_textbook_reading(ugrad_textbook_reading),
                        format_handout_reading(ugrad_handout_reading),
                        format_web_reading(ugrad_web_reading),
-                       format_youtube_reading(ugrad_youtube_videos)) %>%
+                       format_youtube_reading(ugrad_youtube_videos)) |>
         itemize()
       output <- stringr::str_c(stringr::str_trim(output),
                                "",
@@ -302,7 +302,7 @@ make_reading_assignment <- function(reading_entry) {
       g_readings <- c(format_textbook_reading(grad_textbook_reading),
                       format_handout_reading(grad_handout_reading),
                       format_web_reading(grad_web_reading),
-                      format_youtube_reading(grad_youtube_videos)) %>%
+                      format_youtube_reading(grad_youtube_videos)) |>
         itemize()
       output <- stringr::str_c(stringr::str_trim(output),
                                "",
@@ -314,7 +314,7 @@ make_reading_assignment <- function(reading_entry) {
       extra_readings <- c(format_textbook_reading(optional_textbook_reading),
                           format_handout_reading(optional_handout_reading),
                           format_web_reading(optional_web_reading),
-                          format_youtube_reading(optional_youtube_videos)) %>%
+                          format_youtube_reading(optional_youtube_videos)) |>
         itemize()
       output <- stringr::str_c(stringr::str_trim(output), "",
                                "### Optional Extra Reading:",
@@ -323,11 +323,11 @@ make_reading_assignment <- function(reading_entry) {
     }
   }
   if (has_notes) {
-    reading_note_str <- reading_notes %>%
+    reading_note_str <- reading_notes |>
       dplyr::arrange(dplyr::desc(.data$rd_prologue), .data$rd_epilogue,
-                     .data$rd_item_id) %>%
-      dplyr::pull("reading_notes") %>%
-      stringr::str_trim(.) %>%
+                     .data$rd_item_id) |>
+      dplyr::pull("reading_notes") |>
+      stringr::str_trim() |>
       stringr::str_c(collapse = "\n\n")
     output <- stringr::str_c(stringr::str_trim(output), "",
                              ifelse(has_req_reading || has_opt_reading,
@@ -337,13 +337,13 @@ make_reading_assignment <- function(reading_entry) {
                              sep = "\n")
   }
   if (has_any_youtube_videos) {
-    youtube_videos_str <- youtube_items %>%
+    youtube_videos_str <- youtube_items |>
       dplyr::mutate(item_str =
                       stringr::str_c('`r htmltools::HTML(\'{{< youtube id="',
                                      .data$youtube_id, '" title="',
                                      .data$short_markdown_title,
-                                     '" >}}\')`')) %>%
-      dplyr::pull("item_str") %>% itemize()
+                                     '" >}}\')`')) |>
+      dplyr::pull("item_str") |> itemize()
     youtube_title <- "### YouTube Video"
     if (nrow(youtube_items) > 1) {
       youtube_title <- stringr::str_c(youtube_title, "s")
@@ -374,12 +374,12 @@ make_reading_assignment <- function(reading_entry) {
 #' @export
 make_reading_page <- function(cal_id, semester, schedule, use_pdfs = TRUE){
   cal_id <- enquo(cal_id)
-  reading <- semester$rd_items %>%
-    dplyr::filter(.data$cal_id == !!cal_id) %>%
-    # merge_dates(semester) %>%
+  reading <- semester$rd_items |>
+    dplyr::filter(.data$cal_id == !!cal_id) |>
+    # merge_dates(semester) |>
     dplyr::left_join(dplyr::select(semester$calendar, "cal_id", "class_num",
                                    "week_num"),
-                     by = "cal_id") %>%
+                     by = "cal_id") |>
     dplyr::left_join( dplyr::select(semester$class_topics, "topic",
                                     "rd_grp_key"),
                       by = "rd_grp_key")
@@ -397,16 +397,16 @@ make_reading_page <- function(cal_id, semester, schedule, use_pdfs = TRUE){
   assertthat::assert_that(length(rd_grp) == 1,
                           msg = "A calendar ID should have a unique reading key # (make_reading)")
   if (semester$has_notices) {
-    notices <- semester$notices %>%
+    notices <- semester$notices |>
       dplyr::filter(.data$topic_id == class_key, ! is.na(.data$notice))
   } else {
     notices <- NULL
   }
 
   if (semester$has_homework && ! is.null(semester$hw_asgt)) {
-    homework <- semester$hw_asgt %>%
-      dplyr::filter(.data$cal_id == !!cal_id) %>%
-      # merge_dates(semester) %>%
+    homework <- semester$hw_asgt |>
+      dplyr::filter(.data$cal_id == !!cal_id) |>
+      # merge_dates(semester) |>
       dplyr::left_join( dplyr::select(semester$hw_items, -"hw_num", -"cal_id"),
                         by = "hw_grp_key")
   } else {
@@ -422,38 +422,38 @@ make_reading_page <- function(cal_id, semester, schedule, use_pdfs = TRUE){
     pubdate = as.character(semester$semester_dates$pub_date),
     date = "`r params$par_date`",
     params = list (
-      par_date = lubridate::as_date(rd_date) %>% as.character(),
+      par_date = lubridate::as_date(rd_date) |> as.character(),
       par_subtitle = NULL
     )
   )
   if (use_pdfs) {
     header$pdf_url <- file.path(semester$file_paths['rd_asgt_pdf'],
-                                stringr::str_c(header$slug, ".pdf")) %>%
+                                stringr::str_c(header$slug, ".pdf")) |>
       clean_url()
   }
   header$output = list(
     "blogdown::html_page" =
       list(md_extensions = get_md_extensions())
   )
-  header <- header %>%
-    yaml::as.yaml() %>% stringr::str_trim("right") %>%
+  header <- header |>
+    yaml::as.yaml() |> stringr::str_trim("right") |>
     stringr::str_c(delim, ., delim, sep = "\n")
   rd_page <- stringr::str_c(
     header,
     make_notice(notices),
-    # make_short_hw_assignment(homework) %>% escape_dollar(),
-    make_reading_assignment(reading) %>% escape_dollar(),
+    # make_short_hw_assignment(homework) |> escape_dollar(),
+    make_reading_assignment(reading) |> escape_dollar(),
     sep = "\n"
   )
-  asgt <- reading %>%
+  asgt <- reading |>
     dplyr::select("cal_id", "rd_grp_key", "rd_grp_id", "cal_key", "date",
-                  "topic", "class_num") %>%
+                  "topic", "class_num") |>
     dplyr::distinct()
   assertthat::assert_that(nrow(asgt) == 1,
                           msg = "A calendar ID should have a consistent reading assignment (make_reading)")
   context <- make_context(asgt, "reading", semester)
 
-  rd_page <- rd_page %>%
+  rd_page <- rd_page |>
     expand_codes(context, semester, schedule,
                  params = list(this_class_num = class_num,
                                this_rd_grp = rd_grp,

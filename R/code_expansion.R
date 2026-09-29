@@ -74,7 +74,7 @@ merge_fn_bodies <- function(..., body_lst = NULL) {
 #   .local_envir = expr(rlang::call_frame(n = !!n_levels)$env)
 #
 #   att <- purrr::map(packages, function(x) {
-#     q <- ensym(x) %>% as_label()
+#     q <- ensym(x) |> as_label()
 #     p <- stringr::str_c("package:", q)
 #     list(
 #       expr(if (! (!!q) %in% .packages()) {
@@ -83,16 +83,16 @@ merge_fn_bodies <- function(..., body_lst = NULL) {
 #         #              envir = !!.local_envir)
 #       })
 #     )
-#   }) %>% unlist()
+#   }) |> unlist()
 #   att <- make_fn_body(expr_lst = att)
 #
 #   det <- purrr::map(packages, function(x) {
-#     q <- ensym(x) %>% as_label()
+#     q <- ensym(x) |> as_label()
 #     p <- stringr::str_c("package:", q)
 #     list(
 #       expr(detach(!!p, character.only = TRUE))
 #     )
-#   }) %>% flatten()
+#   }) |> flatten()
 #   det <- make_fn_body(expr_lst = det)
 #
 #   list(attach = att, detach = det)
@@ -194,6 +194,6 @@ expand_codes <- function(text, context, semester, schedule,
 }
 
 expand_code <- function(text, context, semester, schedule) {
-  stringr::str_c("<%", text, "%>") %>% expand_codes(context, semester, schedule)
+  stringr::str_c("<%", text, "%>") |> expand_codes(context, semester, schedule)
 }
 

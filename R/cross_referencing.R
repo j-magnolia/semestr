@@ -9,7 +9,7 @@
 #'
 #' @export
 lookup_class <- function(calendar, key) {
-  target <- calendar %>% dplyr::filter(.data$class_key == key)
+  target <- calendar |> dplyr::filter(.data$class_key == key)
   if (nrow(target) == 1) {
     return(target)
   } else if (nrow(target == 0)) {
@@ -121,7 +121,7 @@ NULL
 #'
 #' @export
 lookup_future_reading <- function(schedule, id = NULL, grp = NULL, delta = 1) {
-  sched <- schedule %>% dplyr::filter(!is.na(.data$key_rd)) %>%
+  sched <- schedule |> dplyr::filter(!is.na(.data$key_rd)) |>
     dplyr::arrange("class_num", "id_class")
   if (is.null(id)) {
     if (is.null(grp)) {
@@ -161,7 +161,7 @@ lookup_future_reading <- function(schedule, id = NULL, grp = NULL, delta = 1) {
 #'
 #' @export
 lookup_past_reading <- function(schedule, id = NULL, grp = NULL, delta = 1) {
-  sched <- schedule %>% dplyr::filter(!is.na(.data$key_rd)) %>%
+  sched <- schedule |> dplyr::filter(!is.na(.data$key_rd)) |>
     dplyr::arrange("class_num", "id_class")
   if (is.null(id)) {
     if (is.null(grp)) {

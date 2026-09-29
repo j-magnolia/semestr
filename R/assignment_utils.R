@@ -24,18 +24,18 @@ set_md_extensions <- function(ext_str, append = FALSE) {
     ext_str = stringr::str_c(getOption("semestr.md_extensions"), ext_str,
                              sep = "", collapse = "")
   }
-  exts <- ext_str %>% stringr::str_split(" +", simplify = TRUE) %>%
-    as.character() %>%
-    stringr::str_extract_all("[[:space:]+\\-]+[a-zA-Z0-9_]+") %>%
-    purrr::simplify() %>%
+  exts <- ext_str |> stringr::str_split(" +", simplify = TRUE) |>
+    as.character() |>
+    stringr::str_extract_all("[[:space:]+\\-]+[a-zA-Z0-9_]+") |>
+    purrr::simplify() |>
     stringr::str_trim()
-  ext_df <- tibble::tibble(str = exts) %>%
+  ext_df <- tibble::tibble(str = exts) |>
     dplyr::mutate(bare = stringr::str_replace_all(.data$str, "^[+\\-]", ""),
                   num = seq(dplyr::n()))
-  ext_df <- ext_df %>% dplyr::group_by(.data$bare) %>%
-    dplyr::top_n(1, wt = .data$num) %>%
+  ext_df <- ext_df |> dplyr::group_by(.data$bare) |>
+    dplyr::top_n(1, wt = .data$num) |>
     dplyr::ungroup()
-  ext_str <- unique(ext_df$str) %>%
+  ext_str <- unique(ext_df$str) |>
     stringr::str_c(sep = "", collapse = "")
   invisible(ext_str)
 }
@@ -192,7 +192,7 @@ assignment_source_dirs <- function(root_dir = NULL, content_path = "content",
     targets <- interaction(basename(targets), targets_avail)
   }
 
-  targets <- file.path(root_dir, content_path, targets) %>%
+  targets <- file.path(root_dir, content_path, targets) |>
     purrr::keep(dir.exists)
   targets
 }
@@ -225,7 +225,7 @@ is_mt_or_na <- function(x) {
 }
 
 clean_url <- function(s) {
-  stringr::str_replace_all(s, "(^|[^\\:])//+", "\\1/") %>%
+  stringr::str_replace_all(s, "(^|[^\\:])//+", "\\1/") |>
     stringr::str_replace_all("(://)/+", "\\1")
 }
 

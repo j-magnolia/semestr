@@ -17,7 +17,7 @@ database <- "new_EES_3310_5310.sqlite3"
 csv_dir <- file.path(planning_dir, "db_save", "new")
 
 calendar <- read_csv(file.path(csv_dir, "calendar.csv"), col_types = "iiic",
-                     na = c("", "NA", "N/A", "na", "n/a")) %>%
+                     na = c("", "NA", "N/A", "na", "n/a")) |>
   mutate(date = mdy(date))
 events <- read_csv(file.path(csv_dir, "events.csv"), col_types = "ic",
                    na = c("", "NA", "N/A", "na", "n/a"))
@@ -32,7 +32,7 @@ text_codes <- read_csv(file.path(csv_dir, "text_codes.csv"), col_types = "cccl",
 
 homework_assignments <- read_csv(file.path(csv_dir, "homework_assignments.csv"),
                                  col_types = "icccclccc",
-                                 na = c("", "NA", "N/A", "na", "n/a")) %>%
+                                 na = c("", "NA", "N/A", "na", "n/a")) |>
   mutate(hw_due_date = mdy(hw_due_date))
 homework_groups <- read_csv(file.path(csv_dir, "homework_groups.csv"),
                             col_types = "iic",
@@ -42,7 +42,7 @@ homework_items <- read_csv(file.path(csv_dir, "homework_items.csv"),
                            na = c("", "NA", "N/A", "na", "n/a"))
 homework_solutions <- read_csv(file.path(csv_dir, "homework_solutions.csv"),
                                col_types = "icccccc",
-                               na = c("", "NA", "N/A", "na", "n/a")) %>%
+                               na = c("", "NA", "N/A", "na", "n/a")) |>
   mutate(hw_sol_pub_date = ymd(hw_sol_pub_date))
 homework_topics <- read_csv(file.path(csv_dir, "homework_topics.csv"),
                             col_types = "cc",
@@ -50,7 +50,7 @@ homework_topics <- read_csv(file.path(csv_dir, "homework_topics.csv"),
 
 lab_assignments <- read_csv(file.path(csv_dir, "lab_assignments.csv"),
                             col_types = "icccccc",
-                            na = c("", "NA", "N/A", "na", "n/a")) %>%
+                            na = c("", "NA", "N/A", "na", "n/a")) |>
   mutate(report_due_date = ymd(report_due_date),
          presentation_date = ymd(presentation_date))
 lab_groups <- read_csv(file.path(csv_dir, "lab_groups.csv"),
@@ -61,7 +61,7 @@ lab_items <- read_csv(file.path(csv_dir, "lab_items.csv"),
                       na = c("", "NA", "N/A", "na", "n/a"))
 lab_solutions <- read_csv(file.path(csv_dir, "lab_solutions.csv"),
                           col_types = "iccccccc",
-                          na = c("", "NA", "N/A", "na", "n/a")) %>%
+                          na = c("", "NA", "N/A", "na", "n/a")) |>
   mutate(lab_sol_pub_date = ymd(lab_sol_pub_date))
 
 reading_items <- read_csv(file.path(csv_dir, "reading_items.csv"),
@@ -119,9 +119,9 @@ for(t in c("calendar", "events", "exams", "holidays",
            "reading_sources","text_codes")) {
   df <- get(t)
   classes <- map_chr(df, ~class(.x)[1])
-  type = class_map[classes] %>% unname()
+  type = class_map[classes] |> unname()
   idx <- list(names(df)[1])
-  df <- df %>% mutate_if(is.Date, as.character)
+  df <- df |> mutate_if(is.Date, as.character)
   copy_to(db, df, name = t, overwrite = TRUE, types = type,
           temporary = FALSE, indexes = idx)
 }
