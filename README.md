@@ -1,7 +1,7 @@
 semestr
 ================
 J. Magnolia Gilligan
-2026-06-03
+2026-10-1
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -10,11 +10,9 @@ J. Magnolia Gilligan
 <!-- badges: start -->
 
 [![Version:
-0.4.3](https://img.shields.io/github/r-package/v/j-magnolia/semestr?label=version)](https://github.com/j-magnolia/semestr/releases/tag/v0.4.3)
+0.6.1](https://img.shields.io/github/r-package/v/j-magnolia/semestr?label=version)](https://github.com/j-magnolia/semestr/releases/tag/v0.6.1)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/semestr)](https://CRAN.R-project.org/package=semestr)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R-CMD-check](https://github.com/j-magnolia/semestr/workflows/R-CMD-check/badge.svg)](https://github.com/j-magnolia/semestr/actions)
