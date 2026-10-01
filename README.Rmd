@@ -23,8 +23,7 @@ pkg <- read.dcf("DESCRIPTION") %>% as_tibble() %>% head(1)
 
 <!-- badges: start -->
 [![Version: `r pkg$Version`](https://img.shields.io/github/r-package/v/j-magnolia/semestr?label=version)](`r str_c("https://github.com/j-magnolia", pkg$Package, "releases", "tag", str_c("v", pkg$Version), sep = "/")`)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![CRAN status](https://www.r-pkg.org/badges/version/semestr)](https://CRAN.R-project.org/package=semestr)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R-CMD-check](https://github.com/j-magnolia/semestr/workflows/R-CMD-check/badge.svg)](https://github.com/j-magnolia/semestr/actions)
 <!-- badges: end -->
