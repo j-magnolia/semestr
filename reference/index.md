@@ -6,6 +6,8 @@ Build a syllabus
 
 - [`load_semester_db()`](https://j-magnolia.github.io/semestr/reference/load_semester_db.md)
   : Load schedule for semester from database
+- [`fixup_semester()`](https://j-magnolia.github.io/semestr/reference/fixup_semester.md)
+  : Fix up semester object for canceled and makeup classes
 - [`generate_assignments()`](https://j-magnolia.github.io/semestr/reference/generate_assignments.md)
   : Generate assignments from database
 - [`build_pdf_files()`](https://j-magnolia.github.io/semestr/reference/build_pdf_files.md)

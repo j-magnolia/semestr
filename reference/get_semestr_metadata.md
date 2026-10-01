@@ -54,11 +54,11 @@ get_semestr_metadata()
 #>    "class" "homework"      "lab" "due date"     "exam"  "holiday"    "event" 
 #> 
 #> $mods
-#> canceled  make_up 
+#> canceled   makeup 
 #>      100      200 
 #> 
 #> $rev_mods
 #>        100        200 
-#> "canceled"  "make_up" 
+#> "canceled"   "makeup" 
 #> 
 ```

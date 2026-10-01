@@ -1,6 +1,6 @@
 # Determine the modification type of calendar entry from its calendar id.
 
-Modifications include canceled and re-scheduled (make-up) classes.
+Modifications include canceled and re-scheduled (makeup) classes.
 
 ## Usage
 
@@ -17,4 +17,4 @@ item_mod(cal_id)
 ## Value
 
 A string identifying the type of modification. Current values are
-"canceled" and "make-up"
+"canceled" and "makeup"

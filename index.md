@@ -1,6 +1,6 @@
 # semestr
 
-J. Magnolia Gilligan 2026-06-03
+J. Magnolia Gilligan 2026-10-1
 
 # semestr
 

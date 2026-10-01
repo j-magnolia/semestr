@@ -6,7 +6,7 @@ assignment web page and PDF handout.
 ## Usage
 
 ``` r
-build_hw_assignment(schedule, date, cal_entry, semester)
+build_hw_assignment(schedule, date, cal_entry, semester, dry_run = FALSE)
 ```
 
 ## Arguments
@@ -26,6 +26,10 @@ build_hw_assignment(schedule, date, cal_entry, semester)
 - semester:
 
   A list of data for the semester, from the database.
+
+- dry_run:
+
+  Don't actually write assignment files to disk.
 
 ## Value
 

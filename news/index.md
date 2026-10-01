@@ -1,5 +1,24 @@
 # Changelog
 
+## semestr 0.6.1
+
+- Fixed errors where magrittr used `.`, to make code work with native
+  pipes.
+
+## semestr 0.6.0
+
+- Replaced magrittr pipes with native pipes throughout.
+
+## semestr 0.5.0
+
+- Feature: Handle canceled and makeup classes from database.
+
+## semestr 0.4.3
+
+- Bugfix: Pandoc now usess option `-definition_lists` instead of
+  `-compact_definition_lists`. Fix pandoc options in `.Rmd` headers to
+  avoid an error.
+
 ## semestr 0.4.2
 
 - Bugfix: Fixed

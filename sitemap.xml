@@ -24,13 +24,12 @@
 <url><loc>https://j-magnolia.github.io/semestr/reference/col_replace.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/col_search.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/col_search_sum.html</loc></url>
-<url><loc>https://j-magnolia.github.io/semestr/reference/compound.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/concat_with_nl.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/copy_slides.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/date_parts.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/default_semestr_metadata.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/escape_dollar.html</loc></url>
-<url><loc>https://j-magnolia.github.io/semestr/reference/exposition.html</loc></url>
+<url><loc>https://j-magnolia.github.io/semestr/reference/fixup_semester.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/format_class_date.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/format_date_range.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/format_page_range.html</loc></url>
@@ -67,7 +66,6 @@
 <url><loc>https://j-magnolia.github.io/semestr/reference/pdf_filename.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/pdf_needs_rebuild.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/pdfs_to_rebuild.html</loc></url>
-<url><loc>https://j-magnolia.github.io/semestr/reference/pipe.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/prepare_schedule.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/prune_pdf_digests.html</loc></url>
 <url><loc>https://j-magnolia.github.io/semestr/reference/pull_env.html</loc></url>

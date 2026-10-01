@@ -7,7 +7,7 @@ the class slide directory.
 ## Usage
 
 ``` r
-copy_slides(schedule, date, cal_entry, semester)
+copy_slides(schedule, date, cal_entry, semester, dry_run = FALSE)
 ```
 
 ## Arguments
@@ -27,6 +27,10 @@ copy_slides(schedule, date, cal_entry, semester)
 - semester:
 
   A list of data for the semester, from the database.
+
+- dry_run:
+
+  Don't actually copy files
 
 ## Value
 

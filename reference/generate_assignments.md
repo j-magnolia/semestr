@@ -6,7 +6,7 @@ a lessons.yml file for Hugo to use in making a schedule for a course.
 ## Usage
 
 ``` r
-generate_assignments(semester)
+generate_assignments(semester, dry_run = FALSE)
 ```
 
 ## Arguments
@@ -15,6 +15,10 @@ generate_assignments(semester)
 
   A semester object returned from
   [`load_semester_db()`](https://j-magnolia.github.io/semestr/reference/load_semester_db.md).
+
+- dry_run:
+
+  Don't actually write assignment files to disk.
 
 ## Value
 

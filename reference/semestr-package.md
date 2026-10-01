@@ -15,10 +15,11 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Jonathan Gilligan <j.magnolia.gilligan@vanderbilt.edu>
+**Maintainer**: J. Magnolia Gilligan
+<j.magnolia.gilligan@vanderbilt.edu>
 ([ORCID](https://orcid.org/0000-0003-1375-6686))
 
 Authors:
 
-- Jonathan Gilligan <j.magnolia.gilligan@vanderbilt.edu>
+- J. Magnolia Gilligan <j.magnolia.gilligan@vanderbilt.edu>
   ([ORCID](https://orcid.org/0000-0003-1375-6686))
