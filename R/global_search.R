@@ -54,9 +54,10 @@ col_search <- function(df, pattern) {
 #'
 #' @export
 col_search_sum <- function(df, pattern, na.rm = TRUE) {
-  df |> dplyr::summarize(dplyr::across(where(is.character),
-                                        ~sum(stringr::str_detect(., pattern),
-                                             na.rm = na.rm)))
+  dplyr::summarize(df,
+                   dplyr::across(where(is.character),
+                                 ~sum(stringr::str_detect(.x, pattern),
+                                      na.rm = na.rm)))
 }
 
 

@@ -536,7 +536,8 @@ format_date_range_by_event_id <- function(calendar, event_ids, abbr = TRUE,
 #' format_page_range("50--75")
 #' @export
 format_page_range <- function(pages) {
-  str <- stringr::str_trim(pages) |> stringr::str_replace_all("^p+\\. *", "")
+  str <- stringr::str_trim(pages) |>
+    stringr::str_replace_all("^p+\\. *", "")
   multiple <- stringr::str_detect(pages, "-+|,|;| and ")
   stringr::str_c(ifelse(multiple, "pp. ", "p. "), pages)
 }
@@ -606,3 +607,6 @@ enumerate <- function(text, pad_len = 0, enum_type = "#.") {
     stringr::str_c(collapse = "\n")
 }
 
+delimit_text_block <- function(x, delim) {
+  stringr::str_c(delim, x, delim, sep = "\n")
+}

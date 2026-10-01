@@ -79,7 +79,7 @@ make_hw_solution_page <- function(solution, semester, schedule,
   header <- header |>
     purrr::discard(is_mt_or_na) |>
     yaml::as.yaml() |> stringr::str_trim("right") |> #nolint
-    stringr::str_c(delim, ., delim, sep = "\n")
+    delimit_text_block(delim)
   context <- make_context(solution, "homework solution", semester)
   hw_solution_page <- stringr::str_c(
     header,
@@ -489,7 +489,7 @@ make_hw_asgt_page <- function(key, semester, schedule, use_solutions = FALSE,
     )
   header <- header |> purrr::discard(is_mt_or_na) |>
     yaml::as.yaml() |> stringr::str_trim("right") |> # nolint
-    stringr::str_c(delim, ., delim, sep = "\n")
+    delimit_text_block(delim)
   context <- make_context(assignment, "homework", semester)
   hw_page <- stringr::str_c(
     header,
@@ -569,7 +569,7 @@ make_short_hw_assignment <- function(key, semester) {
     output <- stringr::str_c( "Homework #", assignment$hw_num,
                               " is due today: ", add_period(hw_topics),
                               " See the homework assignment sheet for details.") |>
-      stringr::str_c( "## Homework", "", .,  "", sep = "\n" )
+      (\(x) stringr::str_c( "## Homework", "", x,  "", sep = "\n" ))()
   }
   output
 }

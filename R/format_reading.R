@@ -437,7 +437,7 @@ make_reading_page <- function(cal_id, semester, schedule, use_pdfs = TRUE){
   )
   header <- header |>
     yaml::as.yaml() |> stringr::str_trim("right") |>
-    stringr::str_c(delim, ., delim, sep = "\n")
+    delimit_text_block(delim)
   rd_page <- stringr::str_c(
     header,
     make_notice(notices),

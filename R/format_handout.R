@@ -42,7 +42,7 @@ make_handout <- function(doc, semester, schedule) {
   )
   header <- header |> purrr::discard(is_mt_or_na) |>
     yaml::as.yaml() |> stringr::str_trim("right") |>
-    stringr::str_c(delim, ., delim, sep = "\n")
+    delimit_text_block(delim)
   context <- make_context(doc, "handout", semester)
   handout_page <- cat_nl(header, make_handout_content(doc, semester))
   handout_page <- expand_codes(handout_page, context, semester,

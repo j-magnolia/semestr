@@ -252,7 +252,7 @@ schedule_widen <- function(schedule, final_exams, semester,
   }
 
   schedule <- schedule |>
-    dplyr::mutate(topic = purrr::pmap_chr(., t_topic)) |>
+    (\(x) dplyr::mutate(x, topic = purrr::pmap_chr(x, t_topic)))() |>
     dplyr::select(-dplyr::starts_with("topic_"))
 
   for (col in get_semestr_metadata()$type2col) {
@@ -661,7 +661,7 @@ generate_assignments <- function(semester, dry_run = FALSE) {
     dplyr::mutate(date = as.character(.data$date)) |>
     purrr::pmap(list) |>
     purrr::map(~purrr::discard(.x, is.na)) |>
-    list(lessons = .) |>
+    list(lessons = _) |>
     yaml::as.yaml() |>
     expand_codes(context, semester, schedule)
 

@@ -54,7 +54,7 @@ make_lab_solution_page <- function(sol, semester, schedule,
     purrr::discard(is_mt_or_na) |>
     yaml::as.yaml() |>
     stringr::str_trim("right") |>
-    stringr::str_c(delim, ., delim, sep = "\n" )
+    delimit_text_block(delim)
   context <- make_context(sol, "lab solution", semester)
   lab_solution_page <- cat_nl( header,
                                make_lab_solution_content(sol, semester)) |>
@@ -115,7 +115,7 @@ make_lab_doc_page <- function(doc, semester, schedule, use_pdfs = TRUE) {
   header <- header |>
     purrr::discard(is_mt_or_na) |>
     yaml::as.yaml() |> stringr::str_trim("right") |>
-    stringr::str_c(delim, ., delim, sep = "\n")
+    delimit_text_block(delim)
   context <- make_context(doc, "lab doc", semester)
   lab_doc_page <- cat_nl(header,
                          make_lab_doc_content(doc, semester)) |>
@@ -283,9 +283,9 @@ make_lab_assignment_page <- function(key, semester, schedule,
     output = list("blogdown::html_page" =
                     list(md_extensions = get_md_extensions()))
   ) |> purrr::discard(is_mt_or_na) |>
-    yaml::as.yaml(.) |>
+    yaml::as.yaml() |>
     stringr::str_trim("right") |>
-    stringr::str_c(delim, ., delim, sep = "\n")
+    delimit_text_block(delim)
 
   context <- make_context(assignment, "lab", semester)
   lab_page <- stringr::str_c(

@@ -1,3 +1,8 @@
+# semestr 0.6.1
+
+* Fixed errors where magrittr used `.`, to make code work with native
+  pipes.
+
 # semestr 0.6.0
 
 * Replaced magrittr pipes with native pipes throughout.
