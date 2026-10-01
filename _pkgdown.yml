@@ -17,6 +17,7 @@ reference:
   desc: Build a syllabus
   contents:
     - load_semester_db
+    - fixup_semester
     - generate_assignments
     - build_pdf_files
 - title: Maintenance
