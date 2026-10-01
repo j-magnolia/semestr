@@ -16,7 +16,7 @@ stages:
 
 before_script:
   - mkdir -p $R_LIBS_USER
-  - R -e 'devtools::install_deps(dep = T)'
+  - R -e 'pak::install_deps(dep = T)'
 
 test:
   stage: test
