@@ -228,6 +228,7 @@ schedule_widen <- function(schedule, final_exams, semester,
 
   schedule <- schedule |>
     dplyr::mutate(page = NA_character_) |>
+    dplyr::filter(! is.na(date)) |>
     tidyr::pivot_wider(names_from = "cal_type",
                        values_from = c("id", "key", "page")) |>
     dplyr::select(-dplyr::any_of(c("page_exam", "page_holiday"))) |>
